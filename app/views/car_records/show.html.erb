@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+  <% @car_record.images.each do |image| %>
+    <div>
+      <%= image_tag(image) %>
+    </div>
+  <% end %>
+
+<p>
+  <strong>Title:</strong>
+  <%= @car_record.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @car_record.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @car_record.price %>
+</p>
+
+<%= link_to 'Edit', edit_car_record_path(@car_record) %> |
+<%= link_to 'Back', car_records_path %>

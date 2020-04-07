@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Car Records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @car_records.each do |car_record| %>
+      <tr>
+        <td><%= image_tag(car_record.images[0], :style => "width: 15vw") %></td>
+        <td><%= car_record.title %></td>
+        <td><%= car_record.description %></td>
+        <td><%= car_record.price %></td>
+        <td><%= link_to 'Show', car_record %></td>
+        <td><%= link_to 'Edit', edit_car_record_path(car_record) %></td>
+        <td><%= link_to 'Destroy', car_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Car Record', new_car_record_path %>
