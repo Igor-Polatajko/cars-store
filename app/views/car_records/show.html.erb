@@ -1,25 +1,56 @@
 <p id="notice"><%= notice %></p>
-
-  <% @car_record.images.each do |image| %>
-    <div>
-      <%= image_tag(image) %>
-    </div>
-  <% end %>
-
+<div class="container col-md-6">
+  <div id="carouser-image-item" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouser-image-item" data-slide-to="0" class="active"></li>
+      <% (1..@car_record.images.count - 1).to_a.each do |index| %>
+        <li data-target="#carouser-image-item" data-slide-to="<%= index %>"></li>
+      <% end %>
+    </ol>
+    <div class="carousel-inner">
+      <% @car_record.images.each_with_index  do |image, index|
+       active_status = index == 0 ? 'active' : '' 
+       %>
+      <div class="carousel-item <%= active_status %>">
+        <%= image_tag(image, :class => "d-block w-100") %>
+      </div>
+    <% end %>
+  </div>
+  <a class="carousel-control-prev" href="#carouser-image-item" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouser-image-item" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
 <p>
   <strong>Title:</strong>
   <%= @car_record.title %>
 </p>
-
 <p>
   <strong>Description:</strong>
   <%= @car_record.description %>
 </p>
-
 <p>
   <strong>Price:</strong>
   <%= @car_record.price %>
 </p>
-
-<%= link_to 'Edit', edit_car_record_path(@car_record) %> |
-<%= link_to 'Back', car_records_path %>
+<!-- Navigation -->
+<%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'float-right mr-2') do %>
+  <div class="btn btn btn-outline-danger">
+    Delete
+  </div>
+<% end %>
+<%= link_to(edit_car_record_path(@car_record), :class => 'float-right mr-2') do %>
+  <div class="btn btn btn-outline-warning">
+    Edit
+  </div>
+<% end %>
+<%= link_to(car_records_path, :class => 'float-right mr-2') do %>
+  <div class="btn btn btn-outline-primary">
+    Back
+  </div>
+<% end %>
