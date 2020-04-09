@@ -1,2 +1,18 @@
-<h1>MainPage#index</h1>
-<p>Find me in app/views/main_page/index.html.erb</p>
+<div class="container p-5 col-md-12">
+  <div class="row">
+    <% @car_records.each do |car_record| %>
+      <div class="col-md-3 p-3 m-5 welcome_index_record_block">
+        <div class="col-md-12 d-flex align-items-center main_img">
+          <%= image_tag(car_record.images[0], :class => "w-100") %>
+        </div>
+        <div class="px-5">
+          <h2><%= car_record.title %></h2>
+          <p><%= truncate(car_record.description) %></p>
+          <%= link_to(car_record) do %>
+            <div class="btn btn-outline-secondary">View details &raquo;</div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
