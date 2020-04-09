@@ -2,6 +2,28 @@ p, label, a, div {
   font-size: medium;
 }
 
+a {
+  font-weight: bold;
+  color: black;
+
+  &:hover {
+      text-decoration: underline;
+      color: black;
+  }
+}
+
+.custom-nav-style{
+  a {
+    color: white;
+    font-size: 18px;
+    display: inline-block;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
 #notice {
     color: green;
 }

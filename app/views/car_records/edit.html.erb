@@ -1,8 +1,14 @@
 <div class="container  mt-2">
-    <h1>Editing Car Record</h1>
-
-    <%= render 'form', car_record: @car_record %>
-
-    <%= link_to 'Show', @car_record %> |
-    <%= link_to 'Back', car_records_path %>
+  <h1>Editing Car Record</h1>
+  <%= render 'form', car_record: @car_record %>
+  <%= link_to(@car_record, :class => 'float-right mr-2') do %>
+    <div class="btn btn btn-outline-primary">
+      Show
+    </div>
+  <% end %>
+  <%= link_to(@car_record, :class => 'float-right mr-2') do %>
+    <div class="btn btn btn-outline-primary">
+      Back
+    </div>
+  <% end %>
 </div>
