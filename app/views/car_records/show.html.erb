@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="row">
-  <div class="col-md-7 p-4 carousel-block-styling">
+  <div class="col-md-7 p-4 shadow_block rounded">
     <div id="carouser-image-item" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <% if @car_record.images.count > 1 %>
@@ -31,29 +31,29 @@
     <% end %>
   </div>
 </div>
-<div class="col-md-5 mt-5 p-3 mb-5">
-  <div class="m-auto col-md-6">
-    <div class="row m-3 ">
+<div class="col-md-4 mt-5 p-3 mb-5 ml-5 car_show_block">
+  <div class="rounded bg-white shadow_block p-3">
+    <div class="row ml-3 car_title">
       <%= @car_record.title %>
     </div>
-    <div class="row m-3">
+    <div class="row car_price ml-4">
       <%= number_to_currency(@car_record.price, :precision => 0) %>
     </div>
-    <div class="row m-3">
-      <%= @car_record.description %>
-    </div>
-    <!-- Navigation -->
-    <div class="d-flex">
-      <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'float-right mr-2') do %>
-        <div class="btn btn btn-outline-danger">
-          Delete
-        </div>
-      <% end %>
-      <%= link_to(edit_car_record_path(@car_record), :class => 'float-right mr-2') do %>
-        <div class="btn btn btn-outline-warning">
-          Edit
-        </div>
-      <% end %>
-    </div>
+  </div>
+  <div class="row m-3 description mt-5">
+    <%= @car_record.description %>
+  </div>
+  <!-- Navigation -->
+  <div class="d-flex ml-4 mt-5">
+    <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'float-right mr-4') do %>
+      <div class="btn btn btn-outline-danger">
+        Delete
+      </div>
+    <% end %>
+    <%= link_to(edit_car_record_path(@car_record)) do %>
+      <div class="btn btn btn-outline-warning">
+        Edit
+      </div>
+    <% end %>
   </div>
 </div>
