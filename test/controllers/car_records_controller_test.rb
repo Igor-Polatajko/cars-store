@@ -14,11 +14,18 @@ class CarRecordsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     get car_records_url
+
+    assert_select ".car-record-container", 2
+
     assert_response :success
   end
 
   test "should get new" do
     get new_car_record_url
+
+    assert_select "h1", "New Car Record"
+    assert_select "form"
+
     assert_response :success
   end
 
@@ -46,6 +53,10 @@ class CarRecordsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
     get edit_car_record_url(@car_record_one)
+
+    assert_select "h1", "Editing Car Record"
+    assert_select "form"
+
     assert_response :success
   end
 

@@ -13,6 +13,11 @@ class MainPageControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     get main_page_index_url
+
+    assert_select ".welcome_index_record_block", 2
+    assert_select "img", 2
+    assert_select ".btn", /View details.+/
+
     assert_response :success
   end
 
