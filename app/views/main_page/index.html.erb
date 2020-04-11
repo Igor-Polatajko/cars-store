@@ -1,0 +1,19 @@
+<div class="container p-5 col-md-12">
+  <div class="row">
+    <% @car_records.each do |car_record| %>
+      <div class="col-md-3 p-3 m-5 welcome_index_record_block">
+        <div class="col-md-12 d-flex align-items-center main_img">
+          <%= image_tag(car_record.images[0], :class => "w-100") %>
+        </div>
+        <div class="px-5 py-2">
+          <h2><%= car_record.title %></h2>
+          <p><%= truncate(car_record.description) %></p>
+          <h4><%= number_to_currency(car_record.price, :precision => 0) %></h4>
+          <%= link_to(car_record) do %>
+            <div class="btn btn-outline-secondary mt-2">View details &raquo;</div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

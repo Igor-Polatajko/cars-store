@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: CarOne
+  description: DescriptionOne
+  price: 15000
+
+two:
+  title: CarTwo
+  description: DescriptionTwo
+  price: 25000
