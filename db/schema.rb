@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_202945) do
+ActiveRecord::Schema.define(version: 2020_04_16_223939) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -41,9 +41,14 @@ ActiveRecord::Schema.define(version: 2020_04_16_202945) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "line_items", force: :cascade do |t|
-    t.integer "saved_collection_id"
-    t.integer "car_record_id"
+    t.integer "car_record_id", null: false
+    t.integer "saved_collection_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["car_record_id"], name: "index_line_items_on_car_record_id"
@@ -75,6 +80,8 @@ ActiveRecord::Schema.define(version: 2020_04_16_202945) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "line_items", "car_records"
+  add_foreign_key "line_items", "saved_collections"
   add_foreign_key "saved_car_records", "car_records"
   add_foreign_key "saved_car_records", "saved_records_collections"
 end

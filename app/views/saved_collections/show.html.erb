@@ -1,1 +1,33 @@
-<h1>Redirect works!</h1>
+<h1 class="mt-5 text-center">My saved items</h1>
+<% if @car_records.blank? %>
+  <div class="container text-center mt-5 info_box">
+    Your collection of saved items is currently empty.
+    Add something to it!
+  </div>
+<% else %>
+  <h2 id="notice" class="text-center"><%= notice %></h2>
+  <div class="container content-container car_records">
+    <% @car_records.each do |car_record| %>
+    <div class="row <%= cycle('bg-white','bg-light') %> mt-5 car-record-container p-3">
+      <%= image_tag(car_record.images[0], :class => "col-md-4") %>
+      <div class="col-md-8 d-flex flex-column justify-content-between">
+        <div>
+          <div class="row">
+            <div class='col-md-12 record-title'><%= car_record.title %></div>
+          </div>
+          <div class="row">
+            <div class='col-md-3 p-3'><%= truncate(car_record.description) %></div>
+          </div>
+        </div>
+        <div class="row mb-3 d-flex justify-content-between">
+          <div class="row">
+            <div class='price ml-4 px-3'><%= number_to_currency(car_record.price, :precision => 0) %></div>
+          </div>
+          <div class="ml-3">
+            <%= link_to 'Details', car_record %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
