@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  get 'error/show', as: 'error'
   root 'main_page#index', as: 'main_page_index'
+  
   resources :car_records
   
   get '/saved_collection', to: 'saved_collections#show', as: 'saved_collection_show'
