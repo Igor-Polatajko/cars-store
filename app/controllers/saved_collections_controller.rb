@@ -4,7 +4,9 @@ class SavedCollectionsController < ApplicationController
     before_action :set_collection
 
     def show
-        @car_records = @saved_collection.line_items.map{ |line_item| line_item.car_record }
+        @car_records = @saved_collection.line_items
+                                            .order(created_at: :desc)
+                                            .map{ |line_item| line_item.car_record }
     end 
 
     def destroy
