@@ -45,14 +45,19 @@
   </div>
   <!-- Navigation -->
   <div class="d-flex ml-4 mt-5">
-    <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'float-right mr-4') do %>
+    <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'mr-4') do %>
       <div class="btn btn btn-outline-danger">
         Delete
       </div>
     <% end %>
-    <%= link_to(edit_car_record_path(@car_record)) do %>
+    <%= link_to(edit_car_record_path(@car_record), :class => 'mr-4') do %>
       <div class="btn btn btn-outline-warning">
         Edit
+      </div>
+    <% end %>
+    <%= link_to(line_items_create_path(car_record_id: @car_record), method: :post) do %>
+      <div class="btn btn btn-outline-success">
+        Add to saved
       </div>
     <% end %>
   </div>

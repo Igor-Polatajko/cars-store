@@ -9,9 +9,14 @@
           <h2><%= car_record.title %></h2>
           <p><%= truncate(car_record.description) %></p>
           <h4><%= number_to_currency(car_record.price, :precision => 0) %></h4>
-          <%= link_to(car_record) do %>
-            <div class="btn btn-outline-secondary mt-2">View details &raquo;</div>
-          <% end %>
+          <div class="row d-flex justify-content-between">
+            <%= link_to(car_record) do %>
+              <div class="btn btn-outline-secondary mt-2">View details &raquo;</div>
+            <% end %>
+            <div class="mt-2">
+              <%= render 'shared/save_unsave_btn', car_record: car_record %>
+            </div>
+          </div>
         </div>
       </div>
     <% end %>

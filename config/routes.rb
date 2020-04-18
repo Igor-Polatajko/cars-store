@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+  get 'error/show', as: 'error'
   root 'main_page#index', as: 'main_page_index'
+  
   resources :car_records
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+  get '/saved_collection', to: 'saved_collections#show', as: 'saved_collection_show'
+  delete '/saved_collection', to: 'saved_collections#destroy', as: 'saved_collection'
+
+  post '/line_items', to: 'line_items#create', as: 'line_items_create'
+  delete '/line_items/:id', to: 'line_items#destroy_by_car_record_id', as: 'line_items'
 end
