@@ -9,22 +9,43 @@ class LineItemsController < ApplicationController
         car_records_in_saved_collection = @saved_collection.line_items.map{ |line_item| line_item.car_record }
 
         if car_records_in_saved_collection.include?(car_record)
-            flash[:notice] = "Item is already in your list!"
-            return redirect_to controller: :saved_collections, action: :show 
+            return respond_after_create("Item is already in your list!")
         end
 
         @saved_collection.line_items.build(car_record: car_record)
         @saved_collection.save
 
-        flash[:notice] = "Added to saved!"
-        redirect_to controller: :saved_collections, action: :show
+        respond_after_create("Added to saved!")
     end
 
     def destroy
         line_item = LineItem.find(params[:id])
         line_item.destroy
 
-        redirect_to controller: :saved_collections, action: :show
+        respond_to do |format|
+            format.html {
+                redirect_to controller: :saved_collections,
+                action: :show }
+            format.json {
+                head :no_content
+            }
+        end
     end 
+
+    private 
+        def respond_after_create(message)
+            flash[:notice] = message
+            json_resp = {:message => message}
+
+            respond_to do |format|
+                format.html {
+                    redirect_to controller: :saved_collections,
+                    action: :show }
+                format.json {
+                    render :json => json_resp
+                    head :ok
+                }
+            end
+        end
 
 end
