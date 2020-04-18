@@ -25,20 +25,27 @@ class LineItemsController < ApplicationController
             format.json {
                 head :no_content
             }
+            format.js {
+                head :no_content
+            }
         end
     end 
 
     private 
-        def respond_after_create(message)
-            flash[:notice] = message
-            json_resp = {:message => message}
+        def respond_after_create(msg)
+            
+            if request.format.html?
+                flash[:notice] = msg
+            end
 
             respond_to do |format|
                 format.html {
                     redirect_to controller: :saved_collections,
                     action: :show }
                 format.json {
-                    render :json => json_resp
+                    head :ok
+                }
+                format.js {
                     head :ok
                 }
             end
