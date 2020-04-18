@@ -1,4 +1,5 @@
 class CarRecordsController < ApplicationController
+
   before_action :set_car_record, only: [:show, :edit, :update, :destroy]
 
   # GET /car_records

@@ -1,14 +1,9 @@
 class LineItemsController < ApplicationController
-    include SavedCollectionSessionRetriever
-
-    before_action :set_collection
 
     def create
         car_record = CarRecord.find(params[:car_record_id])
 
-        car_records_in_saved_collection = @saved_collection.line_items.map{ |line_item| line_item.car_record }
-
-        if car_records_in_saved_collection.include?(car_record)
+        if @car_records_in_saved_collection.include?(car_record)
             return respond_after_create("Item is already in your list!")
         end
 
@@ -18,9 +13,10 @@ class LineItemsController < ApplicationController
         respond_after_create("Added to saved!")
     end
 
-    def destroy
-        line_item = LineItem.find(params[:id])
-        line_item.destroy
+    def destroy_by_car_record_id
+        car_record = CarRecord.find(params[:id])
+
+        LineItem.destroy_by(car_record: car_record)
 
         respond_to do |format|
             format.html {

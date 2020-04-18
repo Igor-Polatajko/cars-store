@@ -8,7 +8,7 @@
           <div class="row mt-2">
             <div class='col-md-12 d-flex justify-content-between'>
               <div class="record-title"><%= car_record.title %></div>
-              <div class="btn btn-outline-success save_to_collection_btn" record_id="<%= car_record.id %>">Save</div>
+              <%= render 'shared/save_unsave_btn', car_record: car_record %>
             </div>
           </div>
           <div class="row">
