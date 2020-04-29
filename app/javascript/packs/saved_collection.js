@@ -53,6 +53,11 @@ $(document).on('click', '#my-saved-toggle', function() {
     $('.coverage').toggleClass('d-none');
 })
 
+$(document).on('click', '.coverage', function() {
+    $('#embedded-saved-items-list').toggleClass('d-none');
+    $('.coverage').toggleClass('d-none');
+})
+
 
 
 

@@ -19,19 +19,20 @@
     </nav>
     <!-- Navbar end -->
     <!-- Embedded card -->
-    <div class="d-none embedded-saved-items-list p-3" id="embedded-saved-items-list">
-      <div>
-      To collection
+    <div class="d-none embedded-saved-items-list" id="embedded-saved-items-list">
+      <div class="position-relative">
+        <div class="position-fixed to-save-collection-link p-3">
+          <%= link_to 'To collection', saved_collection_show_path %>
+        </div>
       </div>
-      <%= render 'shared/car_records_listing', car_records: @car_records_in_saved_collection %>
+      <div class="p-3">
+        <%= render 'shared/car_records_listing', car_records: @car_records_in_saved_collection %>
+      </div>
     </div>
     <!-- Embedded card end -->
-
     <!-- Coverage -->
-      <div class="coverage d-none"></div>
+    <div class="coverage d-none"></div>
     <!-- End coverage -->
-
     <%= yield %>
-
   </body>
 </html>
