@@ -48,3 +48,11 @@ $(document).on('click', '.remove_from_collection_btn', function() {
     }); 
 });
 
+$(document).on('click', '#my-saved-toggle', function() {
+    $('#embedded-saved-items-list').toggleClass('d-none');
+    $('.coverage').toggleClass('d-none');
+})
+
+
+
+

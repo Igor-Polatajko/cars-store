@@ -9,15 +9,29 @@
   </head>
   <body class='<%= controller.controller_name %>'>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav-style">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav-style fixed-top">
       <%= link_to 'Car store', main_page_index_path, :class => "navbar-brand" %>
       <%= link_to 'Recently added', car_records_path, :class=>"nav-link" %>
-      <div class="ml-auto">
+      <div class="ml-auto d-flex">
         <%= link_to 'Add new + ', new_car_record_path, :class=>"nav-link" %>
-        <%= link_to 'My saved', saved_collection_show_path, :class=>"nav-link ml-4" %>
+        <div class="ml-4 my-saved-toggle d-flex align-items-center" id="my-saved-toggle">My saved</div>
       </div>
     </nav>
     <!-- Navbar end -->
+    <!-- Embedded card -->
+    <div class="d-none embedded-saved-items-list p-3" id="embedded-saved-items-list">
+      <div>
+      To collection
+      </div>
+      <%= render 'shared/car_records_listing', car_records: @car_records_in_saved_collection %>
+    </div>
+    <!-- Embedded card end -->
+
+    <!-- Coverage -->
+      <div class="coverage d-none"></div>
+    <!-- End coverage -->
+
     <%= yield %>
+
   </body>
 </html>
