@@ -1,6 +1,6 @@
 $(document).on('click', '.save_to_collection_btn', function() {
-    let element = this
-    let record_id = $(element).attr('record_id')
+    let element = $(this)
+    let record_id = $(element).attr('id')
 
     $.ajax({
         url: 'line_items?car_record_id=' + record_id,
@@ -9,9 +9,9 @@ $(document).on('click', '.save_to_collection_btn', function() {
         dataType: 'script',
         data: "",
         success: function () {
-            $(element).removeClass('save_to_collection_btn btn-outline-success')
-            $(element).addClass('remove_from_collection_btn btn-success')
-            $(element).text('Saved')
+            element.removeClass('save_to_collection_btn btn-outline-success')
+            element.addClass('remove_from_collection_btn btn-success')
+            element.text('Saved')
         },
         error: function () {
             alert("Error while adding item to collection");
@@ -20,8 +20,8 @@ $(document).on('click', '.save_to_collection_btn', function() {
 });
 
 $(document).on('click', '.remove_from_collection_btn', function() {
-    let element = this
-    let record_id = $(element).attr('record_id')
+    let element = $(this)
+    let record_id = $(element).attr('id')
 
     $.ajax({
         url: 'line_items/' + record_id,
@@ -30,9 +30,9 @@ $(document).on('click', '.remove_from_collection_btn', function() {
         dataType: 'script',
         data: "",
         success: function (response) {
-            $(element).removeClass('remove_from_collection_btn btn-success')
-            $(element).addClass('save_to_collection_btn btn-outline-success')
-            $(element).text('Save')
+            element.removeClass('remove_from_collection_btn btn-success')
+            element.addClass('save_to_collection_btn btn-outline-success')
+            element.text('Save')
         },
         error: function () {
             alert("Error while removing item from collection");
