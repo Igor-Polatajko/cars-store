@@ -12,7 +12,6 @@ $(document).on('click', '.save_to_collection_btn', function() {
             $(element).removeClass('save_to_collection_btn btn-outline-success')
             $(element).addClass('remove_from_collection_btn btn-success')
             $(element).text('Saved')
-
         },
         error: function () {
             alert("Error while adding item to collection");
@@ -34,7 +33,6 @@ $(document).on('click', '.remove_from_collection_btn', function() {
             $(element).removeClass('remove_from_collection_btn btn-success')
             $(element).addClass('save_to_collection_btn btn-outline-success')
             $(element).text('Save')
-
         },
         error: function () {
             alert("Error while removing item from collection");

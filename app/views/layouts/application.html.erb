@@ -26,7 +26,16 @@
         </div>
       </div>
       <div class="p-3">
-        <%= render 'shared/car_records_listing', car_records: @car_records_in_saved_collection %>
+        <% if @car_records_in_saved_collection.blank? %>
+          <div class="container text-center mt-5 pt-5">
+            <h5>
+            Your collection of saved items is currently empty.
+            Add something to it!
+            </h5>
+          </div>
+        <% else %>
+          <%= render 'shared/car_records_listing', car_records: @car_records_in_saved_collection %>
+        <% end %>
       </div>
     </div>
     <!-- Embedded card end -->
