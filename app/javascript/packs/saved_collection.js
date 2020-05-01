@@ -9,13 +9,10 @@ $(document).on('click', '.save_to_collection_btn', function() {
         dataType: 'script',
         data: "",
         success: function () {
-            $(element).removeClass('save_to_collection_btn')
-            $(element).removeClass('btn-outline-success')
-            $(element).addClass('remove_from_collection_btn')
-            $(element).addClass('btn-success')
+            $(element).removeClass('save_to_collection_btn btn-outline-success')
+            $(element).addClass('remove_from_collection_btn btn-success')
             $(element).text('Saved')
 
-            alert("Added to saved!");
         },
         error: function () {
             alert("Error while adding item to collection");
@@ -34,13 +31,10 @@ $(document).on('click', '.remove_from_collection_btn', function() {
         dataType: 'script',
         data: "",
         success: function (response) {
-            $(element).removeClass('remove_from_collection_btn')
-            $(element).removeClass('btn-success')
-            $(element).addClass('save_to_collection_btn')
-            $(element).addClass('btn-outline-success')
+            $(element).removeClass('remove_from_collection_btn btn-success')
+            $(element).addClass('save_to_collection_btn btn-outline-success')
             $(element).text('Save')
 
-            alert("Item was removed from your collection");
         },
         error: function () {
             alert("Error while removing item from collection");
