@@ -61,7 +61,7 @@ class LineItemsController < ApplicationController
 
         def push_updated_collection_via_web_socket
             ActionCable.server.broadcast 'saved_collection_listing_updates',
-            html: render_to_string("shared/_car_records_listing",
+            html: render_to_string("shared/_car_records_saved_collection_listing",
              :formats => [:html], 
              :layout => false, 
              :locals => {:car_records => @car_records_in_saved_collection})
