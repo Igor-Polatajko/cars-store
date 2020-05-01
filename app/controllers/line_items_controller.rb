@@ -10,6 +10,8 @@ class LineItemsController < ApplicationController
         @saved_collection.line_items.build(car_record: car_record)
         @saved_collection.save
 
+        @car_records_in_saved_collection.append(car_record)
+
         respond_after_create("Added to saved!")
     end
 
@@ -17,6 +19,8 @@ class LineItemsController < ApplicationController
         car_record = CarRecord.find(params[:id])
 
         LineItem.destroy_by(car_record: car_record)
+
+        @car_records_in_saved_collection.delete(car_record)
 
         respond_to do |format|
             format.html {
@@ -28,6 +32,8 @@ class LineItemsController < ApplicationController
             format.js {
                 head :no_content
             }
+
+            push_updated_collection_via_web_socket
         end
     end 
 
@@ -48,7 +54,17 @@ class LineItemsController < ApplicationController
                 format.js {
                     head :ok
                 }
+
+                push_updated_collection_via_web_socket
             end
+        end
+
+        def push_updated_collection_via_web_socket
+            ActionCable.server.broadcast 'saved_collection_listing_updates',
+            html: render_to_string("shared/_car_records_listing",
+             :formats => [:html], 
+             :layout => false, 
+             :locals => {:car_records => @car_records_in_saved_collection})
         end
 
 end
