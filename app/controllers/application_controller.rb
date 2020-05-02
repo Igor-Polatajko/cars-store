@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
     include SavedCollectionSessionRetriever
-    before_action :set_collection
+    include WebSocketIdentifierCookieSetter
+    before_action :set_collection, :set_web_socket_identifier_cookie
     
     rescue_from Exception, :with => :handle_exception
 

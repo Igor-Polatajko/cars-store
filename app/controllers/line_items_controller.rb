@@ -62,13 +62,14 @@ class LineItemsController < ApplicationController
         end
 
         def push_notification(record_id, action)
-            ActionCable.server.broadcast('saved_collection_listing_updates',
+            ActionCable.server.broadcast("saved_collection_listing_updates_#{cookies[:socket_id]}",
             html: render_to_string("shared/_car_records_saved_collection_listing",
              :formats => [:html], 
              :layout => false, 
              :locals => {:car_records => @car_records_in_saved_collection}))
 
-             ActionCable.server.broadcast('save_unsave_channel', record_id: record_id, action: action)
+             ActionCable.server.broadcast("save_unsave_updates_#{cookies[:socket_id]}",
+              record_id: record_id, action: action)
         end
 
 end
