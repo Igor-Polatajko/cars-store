@@ -1,5 +1,5 @@
 <% if @car_records_in_saved_collection.include?(car_record) %>
-  <div class="btn btn-success remove_from_collection_btn" record_id="<%= car_record.id %>">Saved</div>
+  <div class="btn btn-success remove_from_collection_btn record-id-<%= car_record.id %>" record_id="<%= car_record.id %>">Saved</div>
 <% else %>
-  <div class="btn btn-outline-success save_to_collection_btn" record_id="<%= car_record.id %>">Save</div>
+  <div class="btn btn-outline-success save_to_collection_btn record-id-<%= car_record.id %>" record_id="<%= car_record.id %>">Save</div>
 <% end %>

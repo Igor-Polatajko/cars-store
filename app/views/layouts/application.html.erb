@@ -9,15 +9,39 @@
   </head>
   <body class='<%= controller.controller_name %>'>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav-style">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav-style fixed-top">
       <%= link_to 'Car store', main_page_index_path, :class => "navbar-brand" %>
       <%= link_to 'Recently added', car_records_path, :class=>"nav-link" %>
-      <div class="ml-auto">
+      <div class="ml-auto d-flex">
         <%= link_to 'Add new + ', new_car_record_path, :class=>"nav-link" %>
-        <%= link_to 'My saved', saved_collection_show_path, :class=>"nav-link ml-4" %>
+        <div class="ml-4 my-saved-toggle d-flex align-items-center" id="my-saved-toggle">My saved</div>
       </div>
     </nav>
     <!-- Navbar end -->
+    <!-- Embedded card -->
+    <div class="d-none embedded-saved-items-list" id="embedded-saved-items-list">
+      <div class="position-relative">
+        <div class="position-fixed to-save-collection-link p-3">
+          <%= link_to 'To collection', saved_collection_show_path %>
+        </div>
+      </div>
+      <div class="p-3 embedded-saved-items-list-block">
+        <% if @car_records_in_saved_collection.blank? %>
+          <div class="container text-center mt-5 pt-5">
+            <h5>
+            Your collection of saved items is currently empty.
+            Add something to it!
+            </h5>
+          </div>
+        <% else %>
+          <%= render 'shared/car_records_saved_collection_listing', car_records: @car_records_in_saved_collection %>
+        <% end %>
+      </div>
+    </div>
+    <!-- Embedded card end -->
+    <!-- Coverage -->
+    <div class="coverage d-none"></div>
+    <!-- End coverage -->
     <%= yield %>
   </body>
 </html>
