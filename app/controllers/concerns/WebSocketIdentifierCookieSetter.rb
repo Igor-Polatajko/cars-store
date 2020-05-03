@@ -1,11 +1,11 @@
 module WebSocketIdentifierCookieSetter
-    require 'securerandom'
+   require 'securerandom'
 
-    protected
+   protected
 
-    def set_web_socket_identifier_cookie
-       if cookies["socket_id"].nil?
-          cookies["socket_id"] = SecureRandom.uuid
-       end
-    end
+   def set_web_socket_identifier_cookie
+      if cookies["socket_id"].nil?
+         cookies["socket_id"] = SecureRandom.uuid
+      end
+   end
 end

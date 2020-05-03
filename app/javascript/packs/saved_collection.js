@@ -2,7 +2,7 @@ $(document).on('click', '.save_to_collection_btn', function() {
     let record_id = $(this).attr('record_id')
 
     $.ajax({
-        url: 'line_items?car_record_id=' + record_id,
+        url: '/line_items?car_record_id=' + record_id,
         type: 'POST',
         contentType: 'application/json',
         dataType: 'script',
@@ -17,7 +17,7 @@ $(document).on('click', '.remove_from_collection_btn', function() {
     let record_id = $(this).attr('record_id')
 
     $.ajax({
-        url: 'line_items/' + record_id,
+        url: '/line_items/' + record_id,
         type: 'DELETE',
         contentType: 'application/json',
         dataType: 'script',

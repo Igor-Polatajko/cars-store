@@ -6,8 +6,7 @@ consumer.subscriptions.create(
   { channel: "SaveUnsaveActionChannel", socket_id: get_cookie("socket_id") },
   {
     connected() {
-      console.log(get_cookie("socket_id"))
-      console.log(document.cookie)
+      
     },
 
     disconnected() {
