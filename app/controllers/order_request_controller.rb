@@ -1,5 +1,8 @@
 class OrderRequestController < ApplicationController
   def new
-    @car_record = CarRecord.find(params[:id])
+    @order_request = OrderRequest.new
+  end
+
+  def create
   end
 end

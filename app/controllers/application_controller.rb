@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
     include WebSocketIdentifierCookieSetter
     before_action :set_collection, :set_web_socket_identifier_cookie
     
-    rescue_from Exception, :with => :handle_exception
+    #rescue_from Exception, :with => :handle_exception
 
     def handle_exception(error)
       logger.error(error.message)
