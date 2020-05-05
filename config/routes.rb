@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'order_request/new/:id', to: 'order_request#new', as: 'new_order_request' 
   get 'error/show', as: 'error'
   root 'main_page#index', as: 'main_page_index'
   
