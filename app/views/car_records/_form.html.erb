@@ -1,39 +1,42 @@
-<%= form_with(model: car_record, local: true, class: "form-horizontal col-md-12") do |form| %>
-  <% if car_record.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(car_record.errors.count, "error") %> prohibited this car_record from being saved:</h2>
-      <ul>
-        <% car_record.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+ 
+<div>
+  <%= form_with(model: car_record, local: true, class: "form-horizontal col-md-12") do |form| %>
+    <% if car_record.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(car_record.errors.count, "error") %> prohibited this car_record from being saved:</h2>
+        <ul>
+          <% car_record.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= form.label :title, :class => "control-label col-md-2" %>
+      <%= form.text_field :title, :class => "col-md-12" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :description, :class => "control-label col-md-2" %>
+      <%= form.text_area :description, :class => "col-md-12" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :price, :class => "control-label col-md-2" %>
+      <%= form.text_field :price, :class => "col-md-12" %>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2">
+        <label class="btn btn-outline-primary">
+          Browse images
+          <span style="display:none;">
+            <%= form.file_field :images, multiple: true %>
+          </span>
+        </label>
+      </div>
+    </div>
+    <div class="form-group float-right">
+      <div class="col-md-offset-2 col-md-10">
+        <%= form.submit 'Submit', :class => "btn btn-primary" %>
+      </div>
     </div>
   <% end %>
-  <div class="form-group">
-    <%= form.label :title, :class => "control-label col-md-2" %>
-    <%= form.text_field :title, :class => "col-md-12" %>
-  </div>
-  <div class="form-group">
-    <%= form.label :description, :class => "control-label col-md-2" %>
-    <%= form.text_area :description, :class => "col-md-12" %>
-  </div>
-  <div class="form-group">
-    <%= form.label :price, :class => "control-label col-md-2" %>
-    <%= form.text_field :price, :class => "col-md-12" %>
-  </div>
-  <div class="form-group">
-    <div class="col-md-offset-2">
-      <label class="btn btn-outline-primary">
-        Browse images
-        <span style="display:none;">
-          <%= form.file_field :images, multiple: true %>
-        </span>
-      </label>
-    </div>
-  </div>
-  <div class="form-group float-right">
-    <div class="col-md-offset-2 col-md-10">
-      <%= form.submit 'Submit', :class => "btn btn-primary" %>
-    </div>
-  </div>
-<% end %>
+</div>
