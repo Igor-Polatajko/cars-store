@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrderRequestControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get order_request_new_url
+    get order_request_path
     assert_response :success
   end
 
