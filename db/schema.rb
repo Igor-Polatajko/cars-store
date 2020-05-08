@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_205504) do
+ActiveRecord::Schema.define(version: 2020_05_08_222132) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 2020_05_07_205504) do
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", default: 1, null: false
+    t.index ["user_id"], name: "index_car_records_on_user_id"
+  end
+
+  create_table "car_records_order_requests", id: false, force: :cascade do |t|
+    t.integer "car_record_id", null: false
+    t.integer "order_request_id", null: false
+    t.index ["car_record_id"], name: "index_car_records_order_requests_on_car_record_id"
+    t.index ["order_request_id"], name: "index_car_records_order_requests_on_order_request_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -101,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_205504) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "car_records", "users"
   add_foreign_key "line_items", "car_records"
   add_foreign_key "line_items", "saved_collections"
   add_foreign_key "saved_car_records", "car_records"
