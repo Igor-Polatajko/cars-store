@@ -30,8 +30,7 @@ class OrderRequestController < ApplicationController
     end
 
     if order_request.confirmed
-      @info = "Order is already confirmed!"
-      render :template => "order_request/confirmed"
+      render :template => "order_request/duplicate_confirmation"
       return
     end
 
@@ -39,7 +38,7 @@ class OrderRequestController < ApplicationController
     order_request.save
 
     OrderRequestsMailer.send_car_owner_notification(order_request).deliver_later
-    @info = "Order is successfully confirmed!"
+    OrderRequestsMailer.send_order_request_info_to_customer(order_request).deliver_later
     render :template => "order_request/confirmed"
   end
 

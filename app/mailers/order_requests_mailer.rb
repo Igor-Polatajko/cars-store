@@ -10,4 +10,9 @@ class OrderRequestsMailer < ApplicationMailer
         mail to: order_request.car_record.user.email, subject: 'You have received an order request at CarStore'
     end
 
+    def send_order_request_info_to_customer(order_request)
+        @order_request = order_request
+        mail to: order_request.car_record.user.email, subject: 'Request order info'
+    end
+
 end
