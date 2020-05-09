@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_233312) do
+ActiveRecord::Schema.define(version: 2020_05_09_124718) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_233312) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "comment"
     t.integer "car_record_id", default: 0, null: false
+    t.boolean "confirmed"
+    t.string "confirmation_token"
     t.index ["car_record_id"], name: "index_order_requests_on_car_record_id"
   end
 

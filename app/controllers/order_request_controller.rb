@@ -1,4 +1,6 @@
 class OrderRequestController < ApplicationController
+  require 'securerandom'
+
   def new
     @order_request = OrderRequest.new
     @car_record_id = params[:id]
@@ -10,7 +12,11 @@ class OrderRequestController < ApplicationController
       return
     end
 
-    order_request = OrderRequest.new(order_request_params)
+    order_request_values = order_request_params
+    order_request_values[:confirmed] = false
+    order_request_values[:confirmation_token] = SecureRandom.urlsafe_base64
+
+    order_request = OrderRequest.new(order_request_values)
 
     if order_request.save
       OrderRequestsMailer.send_confirmation_request(order_request).deliver_later
