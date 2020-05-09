@@ -16,20 +16,31 @@ class OrderRequestController < ApplicationController
     order_request_values[:confirmed] = false
     order_request_values[:confirmation_token] = SecureRandom.urlsafe_base64
 
-    order_request = OrderRequest.new(order_request_values)
+    order_request = OrderRequest.create(order_request_values)
 
-    if order_request.save
-      OrderRequestsMailer.send_confirmation_request(order_request).deliver_later
-      render :template => "order_request/submitted"
-    else 
-      redirect_to new_order_request_path(params[:car_record_id])
-    end
+    OrderRequestsMailer.send_confirmation_request(order_request).deliver_later
+    render :template => "order_request/submitted"
   end
 
   def confirm
-    #activate the order
+    order_request = OrderRequest.find_by_confirmation_token(params[:token])
 
-    #send email to car owner
+    if !order_request
+      redirect_to main_page_index_path
+    end
+
+    if order_request.confirmed
+      @info = "Order is already confirmed!"
+      render :template => "order_request/confirmed"
+      return
+    end
+
+    order_request.confirmed = true
+    order_request.save
+
+    OrderRequestsMailer.send_car_owner_notification(order_request).deliver_later
+    @info = "Order is successfully confirmed!"
+    render :template => "order_request/confirmed"
   end
 
   private

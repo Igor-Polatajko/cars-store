@@ -1,5 +1,5 @@
 <h2>Dear, <%= @order_request.name %>.</h2>
-<h3>You have requested the order of <b><%= @order_request.car_record.title %></b>.</h3>
+<h3>You have requested the order of "<%= @order_request.car_record.title %>".</h3>
 <h3>Please, confirm it - http://localhost:3000/order_requests/confirm/<%= @order_request.confirmation_token %>.
 </h3> <!-- ToDo: set it to real hosting after deploy -->
 
