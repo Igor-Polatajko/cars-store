@@ -7,6 +7,7 @@
 body {
     position: relative;
     height: 100vh;
+    overflow-x: hidden;
 
     .embedded-saved-items-list {
         position: fixed;

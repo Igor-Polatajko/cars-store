@@ -37,7 +37,7 @@
         <div class="form-group float-right">
           <%= f.submit 'Request order', :class => "btn btn-success" %>
         </div>
-        <%= hidden_field_tag :car_record_id, @car_record_id %>
+        <%= f.hidden_field :car_record_id, :value => @car_record_id %>
       <% end %>
     </div>
   </div>

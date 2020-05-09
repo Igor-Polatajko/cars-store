@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_222132) do
+ActiveRecord::Schema.define(version: 2020_05_08_233312) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_222132) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "comment"
+    t.integer "car_record_id", default: 0, null: false
+    t.index ["car_record_id"], name: "index_order_requests_on_car_record_id"
   end
 
   create_table "saved_car_records", force: :cascade do |t|
@@ -113,6 +115,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_222132) do
   add_foreign_key "car_records", "users"
   add_foreign_key "line_items", "car_records"
   add_foreign_key "line_items", "saved_collections"
+  add_foreign_key "order_requests", "car_records"
   add_foreign_key "saved_car_records", "car_records"
   add_foreign_key "saved_car_records", "saved_records_collections"
 end

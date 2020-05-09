@@ -10,11 +10,14 @@ class OrderRequestController < ApplicationController
       return
     end
 
-    @car_record = CarRecord.find(params[:car_record_id])
+    order_request = OrderRequest.new(order_request_params)
 
-    #send email with confirmation link
-
-    render :template => "order_request/submitted"
+    if order_request.save
+      OrderRequestsMailer.send_confirmation_request(order_request).deliver_later
+      render :template => "order_request/submitted"
+    else 
+      redirect_to new_order_request_path(params[:car_record_id])
+    end
   end
 
   def confirm
@@ -22,5 +25,10 @@ class OrderRequestController < ApplicationController
 
     #send email to car owner
   end
+
+  private
+    def order_request_params
+      params.require(:order_request).permit(:name, :surname, :email, :phone_number, :comment, :car_record_id)
+    end
 
 end
