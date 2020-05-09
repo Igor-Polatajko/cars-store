@@ -7,7 +7,9 @@ class CarRecordTest < ActiveSupport::TestCase
       title: "My Car",
       description: "description",
       images: [fixture_file_upload('files/test-image.jpg', 'image')],
-      price: 1)
+      price: 1,
+      user: users(:one)
+    )
 
     assert record.valid?
     end

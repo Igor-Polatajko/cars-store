@@ -27,6 +27,8 @@ class CarRecordsController < ApplicationController
   def create
     @car_record = CarRecord.new(car_record_params)
 
+    @car_record.user = current_user
+
     respond_to do |format|
       if @car_record.save
         format.html { redirect_to @car_record, notice: 'Car record was successfully created.' }
