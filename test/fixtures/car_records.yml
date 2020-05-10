@@ -4,8 +4,10 @@ one:
   title: CarOne
   description: DescriptionOne
   price: 15000
+  user: one
 
 two:
   title: CarTwo
   description: DescriptionTwo
   price: 25000
+  user: two

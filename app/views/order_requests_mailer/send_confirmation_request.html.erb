@@ -1,0 +1,6 @@
+<h2>Dear, <%= @order_request.name %>.</h2>
+<h3>You have requested the order of "<%= @order_request.car_record.title %>".</h3>
+<h3>Please, confirm it - http://localhost:3000/order_requests/confirm/<%= @order_request.confirmation_token %>.
+</h3> <!-- ToDo: set it to real hosting after deploy -->
+
+<h3>If you think, that this mail was sent to you by mistake, simply ignore it.</h3>

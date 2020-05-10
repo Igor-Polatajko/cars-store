@@ -1,0 +1,11 @@
+<h2>Dear, <%= @order_request.name %>.</h2>
+<h2>Thank you for making order request on CarStore!</h2>
+<br>
+<h2>Order info:</h2>
+<h3>Order name: <%= @order_request.car_record.title %></h3>
+<h3>Price: <%= number_to_currency(@order_request.car_record.price, :precision => 0) %></h3>
+<h3>Owner: <%= @order_request.car_record.user.name %> <%= @order_request.car_record.user.surname %></h3>
+<h3>Owner email: <%= @order_request.car_record.user.email %></h3>
+<h3>Owner phone number: <%= @order_request.car_record.user.phone_number %></h3>
+<br>
+<h3>Feel free to contact car owner!</h3>

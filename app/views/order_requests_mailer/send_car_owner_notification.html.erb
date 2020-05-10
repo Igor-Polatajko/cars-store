@@ -1,0 +1,14 @@
+<h2>Dear, <%= @order_request.car_record.user.name %>.</h2>
+<h3>You have received an order request of "<%= @order_request.car_record.title %>".</h3>
+<br>
+<h2> Order request details:</h2>
+<h3>Customer: <%= @order_request.name %> <%= @order_request.surname %></h3>
+<h3>Customer email: <%= @order_request.email %></h3>
+<h3>Customer phone number: <%= @order_request.phone_number %></h3>
+<% if @order_request.comment? %>
+  <div style="max-width:50vw">
+    <h3>Comment: <%= @order_request.comment %></h3>
+  </div>
+<% end %>
+<br>
+<h3>Feel free to contact your customer!</h3>

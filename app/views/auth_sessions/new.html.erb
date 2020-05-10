@@ -1,0 +1,21 @@
+<div class="d-flex align-items-center h-100 justify-content-center">
+  <div class="h-auto p-3 rounded bg-light block-shadow">
+    <h1 class="text-center">Log in</h1>
+    <h4 class="text-center text-danger"><%= alert %></h4>
+    <div>
+      <%= form_tag new_session_path do |f| %>
+        <div class="form-group">
+          <%= label_tag :email, "Email", :class => "control-label col-md-12" %>
+          <%= text_field_tag :email, "", :class => "col-md-12" %>
+        </div>
+        <div class="form-group">
+          <%= label_tag :password, "Password", :class => "control-label col-md-12" %>
+          <%= password_field_tag :password, "", :class => "col-md-12" %>
+        </div>
+        <div class="form-group float-right">
+          <%= submit_tag 'Login', :class => "btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

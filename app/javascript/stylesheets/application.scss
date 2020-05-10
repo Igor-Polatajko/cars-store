@@ -6,6 +6,8 @@
 
 body {
     position: relative;
+    height: 100vh;
+    overflow-x: hidden;
 
     .embedded-saved-items-list {
         position: fixed;
@@ -45,5 +47,13 @@ body {
         a { color: white; }
         border-bottom: 1px solid rgb(145, 144, 144);
         z-index: 101;
+    }
+
+    .block-shadow {
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    }
+
+    .block-shadow-lite {
+        box-shadow: 0px 13px 23px 8px rgba(0, 0, 0, 0.15);
     }
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_223939) do
+ActiveRecord::Schema.define(version: 2020_05_09_124718) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 2020_04_16_223939) do
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id", default: 1, null: false
+    t.index ["user_id"], name: "index_car_records_on_user_id"
+  end
+
+  create_table "car_records_order_requests", id: false, force: :cascade do |t|
+    t.integer "car_record_id", null: false
+    t.integer "order_request_id", null: false
+    t.index ["car_record_id"], name: "index_car_records_order_requests_on_car_record_id"
+    t.index ["order_request_id"], name: "index_car_records_order_requests_on_order_request_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -53,6 +62,20 @@ ActiveRecord::Schema.define(version: 2020_04_16_223939) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["car_record_id"], name: "index_line_items_on_car_record_id"
     t.index ["saved_collection_id"], name: "index_line_items_on_saved_collection_id"
+  end
+
+  create_table "order_requests", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.string "phone_number"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "comment"
+    t.integer "car_record_id", default: 0, null: false
+    t.boolean "confirmed"
+    t.string "confirmation_token"
+    t.index ["car_record_id"], name: "index_order_requests_on_car_record_id"
   end
 
   create_table "saved_car_records", force: :cascade do |t|
@@ -79,9 +102,22 @@ ActiveRecord::Schema.define(version: 2020_04_16_223939) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.string "phone_number"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "car_records", "users"
   add_foreign_key "line_items", "car_records"
   add_foreign_key "line_items", "saved_collections"
+  add_foreign_key "order_requests", "car_records"
   add_foreign_key "saved_car_records", "car_records"
   add_foreign_key "saved_car_records", "saved_records_collections"
 end
