@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'login', to: 'auth_sessions#new', as: 'login'
-  post 'auth_sessions/create', to: 'auth_sessions#create', as: 'new_session'
+  post 'login', to: 'auth_sessions#create', as: 'new_session'
   delete 'logout', to: 'auth_sessions#destroy', as: 'logout'
   
   get 'user/new', as: 'new_user'
