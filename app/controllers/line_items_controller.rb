@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
 
-    def create
+    def create_in_collection
         car_record_id = params[:car_record_id]
         car_record = CarRecord.find(car_record_id)
 
@@ -21,11 +21,11 @@ class LineItemsController < ApplicationController
         respond_after_create(SAVE_ACTION, "Added to saved!", car_record_id)
     end
 
-    def destroy_by_car_record_id
+    def destroy_in_collection_by_car_record_id
         car_record_id = params[:id]
         car_record = CarRecord.find(car_record_id)
 
-        LineItem.destroy_by(car_record: car_record)
+        @saved_collection.line_items.destroy_by(car_record: car_record)
 
         @car_records_in_saved_collection.delete(car_record)
 
