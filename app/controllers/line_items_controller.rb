@@ -4,8 +4,13 @@ class LineItemsController < ApplicationController
         car_record_id = params[:car_record_id]
         car_record = CarRecord.find(car_record_id)
 
+        if @car_records_in_saved_collection.count >= MAX_ITEMS_IN_COLLECTION
+            return respond_after_create(WARN_ACTION, 
+                "You can have up to #{MAX_ITEMS_IN_COLLECTION} items in saved collection!", car_record_id)
+        end
+
         if @car_records_in_saved_collection.include?(car_record)
-            return respond_after_create("Item is already in your list!", car_record_id)
+            return respond_after_create(WARN_ACTION, "Item is already in your list!", car_record_id)
         end
 
         @saved_collection.line_items.build(car_record: car_record)
@@ -13,7 +18,7 @@ class LineItemsController < ApplicationController
 
         @car_records_in_saved_collection.append(car_record)
 
-        respond_after_create("Added to saved!", car_record_id)
+        respond_after_create(SAVE_ACTION, "Added to saved!", car_record_id)
     end
 
     def destroy_by_car_record_id
@@ -35,33 +40,29 @@ class LineItemsController < ApplicationController
                 head :no_content
             }
 
-            push_notification(car_record_id, "unsave")
+            push_notification(car_record_id, UNSAVE_ACTION, "Removed from saved!")
         end
     end 
 
     private 
-        def respond_after_create(msg, record_id)
-            
-            if request.format.html?
-                flash[:notice] = msg
-            end
+        def respond_after_create(action, message, record_id)
 
             respond_to do |format|
                 format.html {
                     redirect_to controller: :saved_collections,
                     action: :show }
                 format.json {
-                    head :ok
+                    head :created
                 }
                 format.js {
-                    head :ok
+                    head :created
                 }
 
-                push_notification(record_id, "save")
+                push_notification(record_id, action, message)
             end
         end
 
-        def push_notification(record_id, action)
+        def push_notification(record_id, action, message)
             ActionCable.server.broadcast("saved_collection_listing_updates_#{cookies[:socket_id]}",
             html: render_to_string("shared/_car_records_saved_collection_listing",
              :formats => [:html], 
@@ -69,7 +70,12 @@ class LineItemsController < ApplicationController
              :locals => {:car_records => @car_records_in_saved_collection}))
 
              ActionCable.server.broadcast("save_unsave_updates_#{cookies[:socket_id]}",
-              record_id: record_id, action: action)
+              record_id: record_id, action: action, message: message)
         end
 
+        private
+            MAX_ITEMS_IN_COLLECTION = 3
+            WARN_ACTION = 'warn'
+            SAVE_ACTION = 'save'
+            UNSAVE_ACTION = 'unsave'
 end

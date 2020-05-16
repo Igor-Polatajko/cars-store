@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "toastr";
 @import "./car_records.scss";
 @import "./shared.scss";
 @import "./main_page.scss";
@@ -8,6 +9,10 @@ body {
     position: relative;
     height: 100vh;
     overflow-x: hidden;
+
+    #toast-container > div {
+        opacity: 0.95;
+    }
 
     .embedded-saved-items-list {
         position: fixed;

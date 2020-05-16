@@ -10,6 +10,8 @@ require("channels")
 require("jquery")
 require("packs/saved_collection")
 
+global.toastr = require("toastr")
+
 import "bootstrap";
 import "../stylesheets/application";
 
