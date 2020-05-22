@@ -14,9 +14,24 @@ class UserController < ApplicationController
   end
 
   def edit
+    unless @current_user.present?
+      return redirect_to new_user_path
+    end
+
+    @user = @current_user
   end
 
   def update
+
+    if !@current_user.authenticate(params[:user][:current_password])
+      flash[:error] = "Current password must be specified and valid"
+    elsif(@current_user.update(user_params))
+      flash[:notice] = "User was successfully updated"
+    else
+      flash[:error] = "Error while updating user"
+    end
+
+    redirect_to edit_user_path
   end
 
   def destroy

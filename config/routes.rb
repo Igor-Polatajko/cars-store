@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'user/new', as: 'new_user'
   post 'user/create', as: 'users'
   get 'user/edit', as: 'edit_user'
-  put 'user/update'
+  patch 'user/update', as: 'user'
   delete 'user/destroy'
   
   get 'order_requests/new/:id', to: 'order_request#new', as: 'new_order_request'

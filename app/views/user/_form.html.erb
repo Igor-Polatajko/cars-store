@@ -1,8 +1,22 @@
-<div class="d-flex align-items-center h-100 justify-content-center">
+<div class="d-flex align-items-center h-100 justify-content-center mt-5">
   <div class="h-auto p-3 rounded bg-light block-shadow">
-   <h1 class="text-center"><%= headline %></h1>
+    <h1 class="text-center">
+      <% if update_action %>
+        Update user
+      <% else %>
+        Create new user
+      <% end %>
+    </h1>
     <div>
-      <%= form_for(@user) do |f| %>
+      <% if flash[:notice].present? %>
+        <p id="notice" class="text-info text-center"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:error].present? %>
+        <p id="error" class="text-danger text-center"><%= flash[:error] %></p>
+      <% end %>
+    </div>
+    <div>
+      <%= form_with(model: @user, local: true) do |f| %>
         <% if @user.errors.any? %>
           <div id="error_explanation">
             <h2><%= pluralize(@user.errors.count, "error") %>
@@ -30,6 +44,14 @@
           <%= f.label :email, :class => "control-label col-md-12" %>
           <%= f.email_field :email, :class => "col-md-12" %>
         </div>
+
+        <% if %>
+          <div class="form-group">
+            <%= f.label :current_password, :class => "control-label col-md-12" %>
+            <%= f.password_field :current_password, :class => "col-md-12" %>
+          </div>
+        <% end %>
+
         <div class="form-group">
           <%= f.label :password, :class => "control-label col-md-12" %>
           <%= f.password_field :password, :class => "col-md-12" %>
