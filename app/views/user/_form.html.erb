@@ -7,14 +7,7 @@
         Create new user
       <% end %>
     </h1>
-    <div>
-      <% if flash[:notice].present? %>
-        <p id="notice" class="text-info text-center"><%= flash[:notice] %></p>
-      <% end %>
-      <% if flash[:error].present? %>
-        <p id="error" class="text-danger text-center"><%= flash[:error] %></p>
-      <% end %>
-    </div>
+    <%= render 'shared/flash' %>
     <div>
       <%= form_with(model: @user, local: true) do |f| %>
         <% if @user.errors.any? %>

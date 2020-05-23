@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admin/index', as: 'admin'
   get 'login', to: 'auth_sessions#new', as: 'login'
   post 'login', to: 'auth_sessions#create', as: 'new_session'
   delete 'logout', to: 'auth_sessions#destroy', as: 'logout'
@@ -7,7 +8,8 @@ Rails.application.routes.draw do
   post 'user/create', as: 'users'
   get 'user/edit', as: 'edit_user'
   patch 'user/update', as: 'user'
-  delete 'user/destroy'
+  delete 'user/:id', to: 'user#deactivate', as: 'deactivate_user'
+  post 'user/:id', to: 'user#activate', as: 'activate_user'
   
   get 'order_requests/new/:id', to: 'order_request#new', as: 'new_order_request'
   match  '/order_requests', to: 'order_request#create', via: [:get, :post]

@@ -1,6 +1,4 @@
 class UserController < ApplicationController
-  include AccessControl
-
   before_action :admin_only, only: [:destroy]
   before_action :user_only, only: [:edit, :update]
   before_action :guest_only, only: [:new, :create]
@@ -36,10 +34,34 @@ class UserController < ApplicationController
     redirect_to edit_user_path
   end
 
-  def destroy
+  def deactivate
+    return set_user_account_state(false)
+  end
+
+  def activate
+    return set_user_account_state(true)
   end
 
   private 
+    
+    def set_user_account_state(active)
+      user = User.find(params[:id])
+
+      if !user.present?
+        flash[ :error] = "User not found"
+        return redirect_to 'admin_path'
+      end
+  
+      user.active = active
+      if user.save
+        flash[:notice] = "User account state successfully updated"
+      else
+        flash[:error] = "Error while changing user's account state"
+      end
+      
+      redirect_to admin_path 
+    end
+
     def user_params
       params.require(:user).permit(:name, :surname, :email, :phone_number, :password, :password_confirmation)
     end

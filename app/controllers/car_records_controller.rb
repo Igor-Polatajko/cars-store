@@ -1,6 +1,4 @@
 class CarRecordsController < ApplicationController
-  include AccessControl
-
   before_action :user_only, only: [:new, :create]
   before_action :owner_only, only: [:edit, :update]
   before_action :owner_or_admin, only: [:destroy]

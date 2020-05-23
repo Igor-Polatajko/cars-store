@@ -16,8 +16,10 @@
         <div class="navbar-link d-flex align-items-center" id="my-saved-toggle">My saved</div>
         <% if @current_user %>
           <%= link_to 'Sale car', new_car_record_path, :class=>"nav-link" %>
+          <% if is_admin%>
+            <%= link_to 'Admin panel', admin_path, :class=>"nav-link ml-1 mr-3" %>
+          <% end %>
           <div class="btn-group dropdown">
-
             <div class="navbar-link d-flex align-items-center dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= @current_user.name %> <%= @current_user.surname %>
             </div>
@@ -57,6 +59,8 @@
     <!-- Coverage -->
     <div class="coverage d-none"></div>
     <!-- End coverage -->
-    <%= yield %>
+    <div class="p-5">
+      <%= yield %>
+    </div>
   </body>
 </html>

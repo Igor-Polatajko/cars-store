@@ -2,7 +2,10 @@ class ApplicationController < ActionController::Base
     include AuthSessionConcern
     include SavedCollectionConcern
     include WebSocketIdentifierCookieSetter
+    include AccessControl
+
     before_action :set_current_user, :set_saved_collection, :set_web_socket_identifier_cookie
+    helper_method :is_admin
     
     #rescue_from Exception, :with => :handle_exception
 
