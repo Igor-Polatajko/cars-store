@@ -1,12 +1,14 @@
 class UserController < ApplicationController
-  before_action :admin_only, only: [:destroy]
+  include AccessControl
 
-  # TODO: guest_only
+  before_action :admin_only, only: [:destroy]
+  before_action :user_only, only: [:edit, :update]
+  before_action :guest_only, only: [:new, :create]
+
   def new
     @user = User.new
   end
 
-  # TODO: guest_only
   def create
     @user = User.new(user_params)
 
@@ -17,16 +19,10 @@ class UserController < ApplicationController
     end 
   end
 
-  # TODO: user_only
   def edit
-    unless @current_user.present?
-      return redirect_to new_user_path
-    end
-
     @user = @current_user
   end
 
-  # TODO: user_only
   def update
 
     if !@current_user.authenticate(params[:user][:current_password])
@@ -40,7 +36,6 @@ class UserController < ApplicationController
     redirect_to edit_user_path
   end
 
-  # TODO: admin_only
   def destroy
   end
 

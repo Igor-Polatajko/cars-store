@@ -1,4 +1,9 @@
 class CarRecordsController < ApplicationController
+  include AccessControl
+
+  before_action :user_only, only: [:new, :create]
+  before_action :owner_only, only: [:edit, :update]
+  before_action :owner_or_admin, only: [:destroy]
 
   before_action :set_car_record, only: [:show, :edit, :update, :destroy]
 
@@ -9,16 +14,13 @@ class CarRecordsController < ApplicationController
   def show
   end
 
-  # TODO: user_only
   def new
     @car_record = CarRecord.new
   end
 
-  # TODO: owner_only
   def edit
   end
 
-  # TODO: user_only
   def create
     @car_record = CarRecord.new(car_record_params)
 
@@ -35,7 +37,6 @@ class CarRecordsController < ApplicationController
     end
   end
 
-  # TODO: owner_only
   def update
     respond_to do |format|
       if @car_record.update(car_record_params)
@@ -48,7 +49,6 @@ class CarRecordsController < ApplicationController
     end
   end
 
-  # TODO: owner_only, admin_only
   def destroy
     @car_record.destroy
     respond_to do |format|
