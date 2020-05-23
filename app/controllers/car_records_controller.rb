@@ -9,13 +9,16 @@ class CarRecordsController < ApplicationController
   def show
   end
 
+  # TODO: user_only
   def new
     @car_record = CarRecord.new
   end
 
+  # TODO: user_only, owner
   def edit
   end
 
+  # TODO: user_only
   def create
     @car_record = CarRecord.new(car_record_params)
 
@@ -32,6 +35,7 @@ class CarRecordsController < ApplicationController
     end
   end
 
+  # TODO: user_only, owner
   def update
     respond_to do |format|
       if @car_record.update(car_record_params)
@@ -44,6 +48,7 @@ class CarRecordsController < ApplicationController
     end
   end
 
+  # TODO: user_only, owner, admin_only
   def destroy
     @car_record.destroy
     respond_to do |format|
