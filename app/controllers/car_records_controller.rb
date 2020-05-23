@@ -14,7 +14,7 @@ class CarRecordsController < ApplicationController
     @car_record = CarRecord.new
   end
 
-  # TODO: user_only, owner
+  # TODO: owner_only
   def edit
   end
 
@@ -35,7 +35,7 @@ class CarRecordsController < ApplicationController
     end
   end
 
-  # TODO: user_only, owner
+  # TODO: owner_only
   def update
     respond_to do |format|
       if @car_record.update(car_record_params)
@@ -48,7 +48,7 @@ class CarRecordsController < ApplicationController
     end
   end
 
-  # TODO: user_only, owner, admin_only
+  # TODO: owner_only, admin_only
   def destroy
     @car_record.destroy
     respond_to do |format|

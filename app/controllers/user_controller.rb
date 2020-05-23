@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  before_action :admin_only, only: [:destroy]
 
   # TODO: guest_only
   def new
