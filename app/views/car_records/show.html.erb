@@ -51,18 +51,24 @@
     <%= @car_record.description %>
   </div>
   <!-- Navigation -->
-  <div class="d-flex ml-4 mt-5">
-    <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'mr-4') do %>
-      <div class="btn btn-outline-danger">
-        Delete
-      </div>
-    <% end %>
-    <%= link_to(edit_car_record_path(@car_record), :class => 'mr-4') do %>
-      <div class="btn btn-outline-warning">
-        Edit
-      </div>
-    <% end %>
-  </div>
+  <% if !is_guest %>
+    <div class="d-flex ml-4 mt-5">
+      <% if is_admin || is_owner %>
+        <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'mr-4') do %>
+          <div class="btn btn-outline-danger">
+            Delete
+          </div>
+        <% end %>
+      <% end %>
+      <% if is_owner %>
+        <%= link_to(edit_car_record_path(@car_record), :class => 'mr-4') do %>
+          <div class="btn btn-outline-warning">
+            Edit
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
   <div class="mt-5 d-flex flex-row-reverse">
     <%= link_to(new_order_request_path(@car_record), :class => 'mr-4') do %>
       <div class="btn btn-lg btn-success">

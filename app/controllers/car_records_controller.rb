@@ -5,6 +5,8 @@ class CarRecordsController < ApplicationController
   before_action :owner_only, only: [:edit, :update]
   before_action :owner_or_admin, only: [:destroy]
 
+  helper_method :is_guest, :is_owner, :is_admin
+
   before_action :set_car_record, only: [:show, :edit, :update, :destroy]
 
   def index
