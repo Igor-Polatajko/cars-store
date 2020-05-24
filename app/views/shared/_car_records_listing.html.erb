@@ -1,7 +1,7 @@
 <h2 id="notice" class="text-center"><%= notice %></h2>
 <div class="container content-container car_records">
   <% car_records.each do |car_record| %>
-    <div class="row <%= cycle('bg-white','bg-light') %> mt-5 car-record-container p-3">
+    <div class="row mt-5 car-record-container p-3">
       <%= image_tag(car_record.images[0], :class => "col-md-4") %>
       <div class="col-md-8 d-flex flex-column justify-content-between">
         <div>

@@ -23,7 +23,11 @@ class OrderRequestController < ApplicationController
 
   def create
     if !request.post?
-      return redirect_to main_page_index_path
+      if @current_user.present?
+        return redirect_to current_user_created_order_requests_path
+      else
+        return redirect_to main_page_index_path
+      end
     end
 
     car_record_id = params[:order_request][:car_record_id]
@@ -41,6 +45,12 @@ class OrderRequestController < ApplicationController
 
     if is_owner(car_record_id) || car_record.user.email == user_email
       @message = "You cannot order your own car!"
+      return render template: "order_request/error"
+    end
+
+    existing_order_request = OrderRequest.where(car_record_id: car_record_id, email: user_email)
+    if existing_order_request.present?
+      @message = "You have already created the order request of this car item!"
       return render template: "order_request/error"
     end
 

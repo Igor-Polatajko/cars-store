@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'user/confirm', to: 'user#confirm_email'
   
   get 'order_requests/new/:id', to: 'order_request#new', as: 'new_order_request'
-  match  '/order_requests', to: 'order_request#create', via: [:get, :post]
+  match 'order_requests', to: 'order_request#create', via: [:get, :post]
   get 'order_requests/confirm', to: 'order_request#confirm'
   get 'order_requests/my/created', to: 'order_request#show_current_user_created_order_requests', as: 'current_user_created_order_requests'
   get 'order_requests/my/received', to: 'order_request#show_current_user_received_order_requests', as: 'current_user_received_order_requests'
@@ -25,9 +25,9 @@ Rails.application.routes.draw do
   resources :car_records
   get 'search', to: "car_records#search", as: 'search'
   
-  get '/saved_collection', to: 'saved_collections#show', as: 'saved_collection_show'
-  delete '/saved_collection', to: 'saved_collections#destroy', as: 'saved_collection'
+  get 'saved_collection', to: 'saved_collections#show', as: 'saved_collection_show'
+  delete 'saved_collection', to: 'saved_collections#destroy', as: 'saved_collection'
 
-  post '/line_items', to: 'line_items#create_in_collection', as: 'line_items_create'
-  delete '/line_items/:id', to: 'line_items#destroy_in_collection_by_car_record_id', as: 'line_items'
+  post 'line_items', to: 'line_items#create_in_collection', as: 'line_items_create'
+  delete 'line_items/:id', to: 'line_items#destroy_in_collection_by_car_record_id', as: 'line_items'
 end
