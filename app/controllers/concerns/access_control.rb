@@ -41,8 +41,10 @@ module AccessControl
     end
 
     def is_owner(car_record_id)
-        car_records_ids_of_current_user = @current_user.car_records.pluck(:id)
-        !car_record_id.nil? && car_records_ids_of_current_user.include?(car_record_id.to_i)
+        CarRecord.unscoped do
+            car_records_ids_of_current_user = @current_user.car_records.pluck(:id)
+            !car_record_id.nil? && car_records_ids_of_current_user.include?(car_record_id.to_i)
+        end
     end
 
 end

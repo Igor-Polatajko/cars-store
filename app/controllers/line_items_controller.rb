@@ -23,7 +23,7 @@ class LineItemsController < ApplicationController
 
     def destroy_in_collection_by_car_record_id
         car_record_id = params[:id]
-        car_record = CarRecord.find(car_record_id)
+        car_record = CarRecord.unscoped.find(car_record_id)
 
         @saved_collection.line_items.destroy_by(car_record: car_record)
 

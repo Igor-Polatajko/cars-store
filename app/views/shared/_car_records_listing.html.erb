@@ -2,7 +2,9 @@
 <div class="container content-container car_records">
   <% car_records.each do |car_record| %>
     <div class="row mt-5 car-record-container p-3">
-      <%= image_tag(car_record.images[0], :class => "col-md-4") %>
+      <div class="col-md-4">
+        <%= image_tag(car_record.images[0], class: "w-100") %>
+      </div>
       <div class="col-md-8 d-flex flex-column justify-content-between">
         <div>
           <div class="row mt-2">
@@ -11,6 +13,13 @@
               <%= render 'shared/save_unsave_btn', car_record: car_record %>
             </div>
           </div>
+          <% if !car_record.active? %>
+            <div class="row mt-4">
+              <div class="ml-auto">
+                <div class="text-white rounded px-2 py-1 bg-danger font-weight-bold">Removed from site</div>
+              </div>
+            </div>
+          <% end %>
           <div class="row">
             <div class='col-md-3 p-3'><%= truncate(car_record.description) %></div>
           </div>

@@ -1,11 +1,11 @@
 class CarRecordsController < ApplicationController
   before_action :user_only, only: [:new, :create, :current_user_car_records]
   before_action :owner_only, only: [:edit, :update]
-  before_action :owner_or_admin, only: [:destroy]
+  before_action :owner_or_admin, only: [:destroy, :activate]
 
   helper_method :is_guest, :is_owner, :is_admin
 
-  before_action :set_car_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_car_record, only: [:edit, :update, :destroy]
 
   def index
     @car_records = CarRecord.order(created_at: :desc).paginate(page: params[:page], per_page: 3)
@@ -22,12 +22,14 @@ class CarRecordsController < ApplicationController
   end
 
   def show_current_user_car_records
-    @car_records = CarRecord.where(user_id: @current_user.id)
+    @car_records = CarRecord.unscoped
+                            .where(user_id: @current_user.id)
                             .order(created_at: :desc)
                             .paginate(page: params[:page], per_page: 3)
   end
 
   def show
+    @car_record = CarRecord.unscoped.find(params[:id])
     @car_record.increment!(:views_count)
   end
 
@@ -67,11 +69,14 @@ class CarRecordsController < ApplicationController
   end
 
   def destroy
-    @car_record.destroy
-    respond_to do |format|
-      format.html { redirect_to current_user_car_records_path, notice: 'Car record was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @car_record.update_column(:active, false)
+    redirect_to car_record_path(@car_record.id), notice: 'Car record was successfully deactivated.'
+  end
+
+  def activate
+    @car_record = CarRecord.unscoped.find(params[:id])
+    @car_record.update_column(:active, true)
+    redirect_to car_record_path(@car_record.id), notice: 'Car record was successfully activated.'
   end
 
   private

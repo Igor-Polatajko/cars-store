@@ -14,7 +14,9 @@ module SavedCollectionConcern
             end
         end
        
-        @car_records_in_saved_collection = @saved_collection.line_items.map{ |line_item| line_item.car_record }                                    
+        CarRecord.unscoped do
+            @car_records_in_saved_collection = @saved_collection.line_items.map{ |line_item| line_item.car_record }  
+        end                                  
     rescue ActiveRecord::RecordNotFound
         @saved_collection = SavedCollection.create
         

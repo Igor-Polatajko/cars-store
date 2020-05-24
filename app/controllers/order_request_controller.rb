@@ -74,8 +74,7 @@ class OrderRequestController < ApplicationController
       return render template: "order_request/error", message: "Order is already confirmed!"
     end
 
-    order_request.confirmed = true
-    order_request.save
+    order_request.update_column(:confirmed, true)
 
     OrderRequestsMailer.send_car_owner_notification(order_request).deliver_later
     OrderRequestsMailer.send_order_request_info_to_customer(order_request).deliver_later

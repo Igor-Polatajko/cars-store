@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   
   get 'car_records/my', to: "car_records#show_current_user_car_records", as: 'current_user_car_records'
   resources :car_records
+  post 'car_records/activate/:id', to: 'car_records#activate', as: "car_record_activate"
   get 'search', to: "car_records#search", as: 'search'
   
   get 'saved_collection', to: 'saved_collections#show', as: 'saved_collection_show'

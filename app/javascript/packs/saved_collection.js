@@ -7,7 +7,7 @@ $(document).on('click', '.save_to_collection_btn', function() {
         contentType: 'application/json',
         dataType: 'script',
         data: "",
-        error: function () {
+        error: function() {
             toastr.error("Error while adding item to save collection!");
         }
     }); 

@@ -33,8 +33,7 @@ class UserController < ApplicationController
       return redirect_to login_url
     end
 
-    user.email_confirmed = true
-    user.save
+    user.update_column(:email_confirmed, true)
 
     flash[:info] = "Email was confirmed!"
     redirect_to login_url
