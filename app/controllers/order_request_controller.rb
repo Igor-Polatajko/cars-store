@@ -36,9 +36,8 @@ class OrderRequestController < ApplicationController
       return redirect_to main_page_index_path
     end
 
-    begin
-      car_record = CarRecord.find(car_record_id)
-    rescue ActiveRecord::RecordNotFound
+    car_record = CarRecord.find_by(id: car_record_id)
+    if car_record.nil?
       @message = "Car not found!"
       return render template: "order_request/error"
     end
