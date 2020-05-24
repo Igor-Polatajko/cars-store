@@ -6,15 +6,28 @@
           <%= image_tag(car_record.images[0], :class => "w-100") %>
         </div>
         <div class="px-5 py-2">
-          <h2><%= car_record.title %></h2>
-          <p><%= truncate(car_record.description) %></p>
-          <h4><%= number_to_currency(car_record.price, :precision => 0) %></h4>
-          <div class="row d-flex justify-content-between">
-            <%= link_to(car_record) do %>
-              <div class="btn btn-outline-secondary mt-2">View details &raquo;</div>
-            <% end %>
-            <div class="mt-2">
-              <%= render 'shared/save_unsave_btn', car_record: car_record %>
+          <div>
+            <h2><%= car_record.title %></h2>
+            <p><%= truncate(car_record.description) %></p>
+            <h4><%= number_to_currency(car_record.price, :precision => 0) %></h4>
+          </div>
+          <div>
+            <div class="pt-3">
+              <div class="row">
+                <div>
+                  <div class="rounded bg-light text-secondary py-1 px-2 font-weight-bold">
+                    Views: <%= car_record.views_count %>
+                  </div>
+                </div>
+              </div>
+              <div class="row d-flex justify-content-between">
+                <%= link_to(car_record) do %>
+                  <div class="btn btn-outline-secondary mt-2">View details &raquo;</div>
+                <% end %>
+                <div class="mt-2">
+                  <%= render 'shared/save_unsave_btn', car_record: car_record %>
+                </div>
+              </div>
             </div>
           </div>
         </div>

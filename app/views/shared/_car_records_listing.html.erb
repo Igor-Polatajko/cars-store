@@ -15,11 +15,22 @@
             <div class='col-md-3 p-3'><%= truncate(car_record.description) %></div>
           </div>
         </div>
-        <div class="row mb-3 d-flex justify-content-between">
-          <div class="row">
-            <div class='price ml-4 px-3'><%= number_to_currency(car_record.price, :precision => 0) %></div>
+        <div>
+          <div class="row mb-1 d-flex justify-content-between">
+            <div class="row">
+              <div class='price ml-4 px-3'><%= number_to_currency(car_record.price, :precision => 0) %></div>
+            </div>
+            <div class="pr-3">
+              <div class="rounded bg-light text-secondary py-1 px-2">
+                Views: <%= car_record.views_count %>
+              </div>
+            </div>
           </div>
-          <%= link_to 'Details', car_record %>
+          <div>
+            <div class="bg-light text-dark rounded px-3 py-1 float-right">
+              <%= link_to 'View details', car_record, style: "font-size: 1.2em" %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

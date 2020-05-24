@@ -12,6 +12,7 @@ class CarRecordsController < ApplicationController
   end
 
   def show
+    @car_record.increment!(:views_count)
   end
 
   def new

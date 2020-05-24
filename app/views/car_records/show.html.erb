@@ -34,16 +34,23 @@
 <div class="col-md-4 mt-5 p-3 mb-5 ml-5 car_show_block">
   <div class="rounded bg-white p-3 block-shadow">
     <div class="row">
-      <div class="col-md-9">
-        <div class="row ml-3 car_title">
+      <div class="col-md-8">
+        <div class="row ml-3 car_title font-weight-bold">
           <%= @car_record.title %>
         </div>
-        <div class="row car_price ml-4">
+        <div class="row car_price ml-4 font-weight-bold">
           <%= number_to_currency(@car_record.price, :precision => 0) %>
         </div>
       </div>
-      <div class="col-md-3 pt-3 pl-4">
-        <%= render 'shared/save_unsave_btn', car_record: @car_record %>
+      <div class="col-md-4">
+        <div class="pt-3 pb-2 px-1 float-right">
+          <%= render 'shared/save_unsave_btn', car_record: @car_record %>
+        </div>
+        <div class="pt-3 pb-2 px-1 float-right">
+          <div class="rounded bg-light text-secondary py-1 px-2 font-weight-bold">
+            Views: <%= @car_record.views_count %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
