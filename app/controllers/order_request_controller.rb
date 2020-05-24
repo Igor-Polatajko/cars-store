@@ -1,17 +1,24 @@
 class OrderRequestController < ApplicationController
   require 'securerandom'
 
+  before_action :user_only, only: [:show_current_user_created_order_requests, :show_current_user_received_order_requests]
+
   def new
     @order_request = OrderRequest.new
     @car_record_id = params[:id]
   end
 
   def show_current_user_created_order_requests
-    
+    @order_requests = OrderRequest.where(email: @current_user.email)
+                                  .order('created_at DESC')
+                                  .paginate(page: params[:page], per_page: 8)
   end
 
   def show_current_user_received_order_requests
-    
+    car_records_ids_of_current_user = @current_user.car_records.pluck(:id)
+    @order_requests = OrderRequest.where(car_record_id: car_records_ids_of_current_user, confirmed: true)
+                                  .order('created_at DESC')
+                                  .paginate(page: params[:page], per_page: 8)
   end
 
   def create
@@ -32,7 +39,7 @@ class OrderRequestController < ApplicationController
       return render template: "order_request/error"
     end
 
-    if is_owner(car_record_id) || car_record_id.user.email == user_email
+    if is_owner(car_record_id) || car_record.user.email == user_email
       @message = "You cannot order your own car!"
       return render template: "order_request/error"
     end

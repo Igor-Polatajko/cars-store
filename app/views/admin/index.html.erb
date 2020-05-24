@@ -32,16 +32,17 @@
               <% else %>
                 <%= link_to(activate_user_path(user), method: :post, data: { confirm: 'Are you sure?' }, :class => 'mr-4') do %>
                   <div class="btn btn-outline-info">
-                   Activate
+                    Activate
                   </div>
                 <% end %>
               <% end %>
             </td>
-          </tbody>
+          </tr>
         <% end %>
-      </table>
-    </div>
-    <div class="m-3 d-flex justify-content-center">
-      <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-    </div>
+      </tbody>
+    </table>
   </div>
+  <div class="m-3 d-flex justify-content-center">
+    <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

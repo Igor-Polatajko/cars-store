@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'order_requests/new/:id', to: 'order_request#new', as: 'new_order_request'
   match  '/order_requests', to: 'order_request#create', via: [:get, :post]
   get 'order_requests/confirm/:token', to: 'order_request#confirm'
+  get 'order_requests/my/created', to: 'order_request#show_current_user_created_order_requests', as: 'current_user_created_order_requests'
+  get 'order_requests/my/received', to: 'order_request#show_current_user_received_order_requests', as: 'current_user_received_order_requests'
 
   get 'error/show', as: 'error'
   root 'main_page#index', as: 'main_page_index'
