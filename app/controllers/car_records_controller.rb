@@ -1,5 +1,5 @@
 class CarRecordsController < ApplicationController
-  before_action :user_only, only: [:new, :create]
+  before_action :user_only, only: [:new, :create, :current_user_car_records]
   before_action :owner_only, only: [:edit, :update]
   before_action :owner_or_admin, only: [:destroy]
 
@@ -18,6 +18,12 @@ class CarRecordsController < ApplicationController
 
     @car_records = CarRecord.where("title like ?", "%#{params[:q]}%")
                             .order(views_count: :desc)
+                            .paginate(page: params[:page], per_page: 3)
+  end
+
+  def show_current_user_car_records
+    @car_records = CarRecord.where(user_id: @current_user.id)
+                            .order(created_at: :desc)
                             .paginate(page: params[:page], per_page: 3)
   end
 
@@ -63,7 +69,7 @@ class CarRecordsController < ApplicationController
   def destroy
     @car_record.destroy
     respond_to do |format|
-      format.html { redirect_to car_records_url, notice: 'Car record was successfully destroyed.' }
+      format.html { redirect_to current_user_car_records_path, notice: 'Car record was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

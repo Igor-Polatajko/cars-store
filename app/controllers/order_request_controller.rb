@@ -6,6 +6,14 @@ class OrderRequestController < ApplicationController
     @car_record_id = params[:id]
   end
 
+  def show_current_user_created_order_requests
+    
+  end
+
+  def show_current_user_received_order_requests
+    
+  end
+
   def create
     if !request.post?
       return redirect_to main_page_index_path

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'error/show', as: 'error'
   root 'main_page#index', as: 'main_page_index'
   
+  get 'car_records/my', to: "car_records#show_current_user_car_records", as: 'current_user_car_records'
   resources :car_records
   get 'search', to: "car_records#search", as: 'search'
   
