@@ -8,8 +8,25 @@ class OrderRequestController < ApplicationController
 
   def create
     if !request.post?
-      redirect_to main_page_index_path
-      return
+      return redirect_to main_page_index_path
+    end
+
+    car_record_id = params[:order_request][:car_record_id]
+    user_email = params[:order_request][:email]
+    if car_record_id.nil? || user_email.nil?
+      return redirect_to main_page_index_path
+    end
+
+    begin
+      car_record = CarRecord.find(car_record_id)
+    rescue ActiveRecord::RecordNotFound
+      @message = "Car not found!"
+      return render template: "order_request/error"
+    end
+
+    if is_owner(car_record_id) || car_record_id.user.email == user_email
+      @message = "You cannot order your own car!"
+      return render template: "order_request/error"
     end
 
     order_request_values = order_request_params
@@ -19,7 +36,7 @@ class OrderRequestController < ApplicationController
     order_request = OrderRequest.create(order_request_values)
 
     OrderRequestsMailer.send_confirmation_request(order_request).deliver_later
-    render :template => "order_request/submitted"
+    render template: "order_request/submitted"
   end
 
   def confirm
@@ -30,8 +47,7 @@ class OrderRequestController < ApplicationController
     end
 
     if order_request.confirmed
-      render :template => "order_request/duplicate_confirmation"
-      return
+      return render template: "order_request/error", message: "Order is already confirmed!"
     end
 
     order_request.confirmed = true
@@ -39,7 +55,7 @@ class OrderRequestController < ApplicationController
 
     OrderRequestsMailer.send_car_owner_notification(order_request).deliver_later
     OrderRequestsMailer.send_order_request_info_to_customer(order_request).deliver_later
-    render :template => "order_request/confirmed"
+    render template: "order_request/confirmed"
   end
 
   private

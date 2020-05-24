@@ -21,13 +21,13 @@ module AccessControl
     end
 
     def owner_only
-        if is_guest || !is_owner
+        if is_guest || !is_owner(params[:id])
             return redirect_to main_page_index_path
         end
     end
 
     def owner_or_admin
-        if is_guest || (!is_owner && !is_admin)
+        if is_guest || (!is_owner(params[:id]) && !is_admin)
             return redirect_to main_page_index_path
         end
     end
@@ -40,9 +40,9 @@ module AccessControl
         @current_user.is_admin
     end
 
-    def is_owner
+    def is_owner(car_record_id)
         car_records_ids_of_current_user = @current_user.car_records.pluck(:id)
-        !params[:id].nil? && car_records_ids_of_current_user.include?(params[:id].to_i)
+        !car_record_id.nil? && car_records_ids_of_current_user.include?(car_record_id.to_i)
     end
 
 end
