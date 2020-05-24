@@ -11,6 +11,16 @@ class CarRecordsController < ApplicationController
     @car_records = CarRecord.order(created_at: :desc).paginate(page: params[:page], per_page: 3)
   end
 
+  def search
+    if params[:q].nil? || params[:q].empty?
+      return redirect_to main_page_index_path
+    end
+
+    @car_records = CarRecord.where("title like ?", "%#{params[:q]}%")
+                            .order(views_count: :desc)
+                            .paginate(page: params[:page], per_page: 3)
+  end
+
   def show
     @car_record.increment!(:views_count)
   end

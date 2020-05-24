@@ -10,8 +10,21 @@
   <body class="<%= controller.controller_name %>">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav-style fixed-top">
+      <!-- Right left -->
       <%= link_to 'Car store', main_page_index_path, :class => "navbar-brand" %>
       <%= link_to 'Recently added', car_records_path, :class=>"nav-link" %>
+      <!-- Search -->
+      <%# <form class="form-inline my-2 my-lg-0 mx-3">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> %>
+      <%= form_with(url: search_path, local: true, method: "get", class: "form-inline my-2 my-lg-0 mx-3") do %>
+        <%= text_field_tag(:q, "", class: "form-control mr-sm-2", type: "search", placeholder: "Search") %>
+        <%= submit_tag("Search", class: "btn btn-outline-success my-2 my-sm-0") %>
+      <% end %>
+      <!-- Search end -->
+      <!-- Right left end -->
+      <!-- Right part -->
       <div class="ml-auto d-flex">
         <div class="navbar-link d-flex align-items-center" id="my-saved-toggle">My saved</div>
         <% if @current_user %>
@@ -33,6 +46,7 @@
           <%= link_to 'Login', login_path, :class=>"nav-link" %>
         <% end %>
       </div>
+      <!-- Right part end -->
     </nav>
     <!-- Navbar end -->
     <!-- Embedded card -->

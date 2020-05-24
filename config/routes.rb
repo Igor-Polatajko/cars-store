@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   root 'main_page#index', as: 'main_page_index'
   
   resources :car_records
+  get 'search', to: "car_records#search", as: 'search'
   
   get '/saved_collection', to: 'saved_collections#show', as: 'saved_collection_show'
   delete '/saved_collection', to: 'saved_collections#destroy', as: 'saved_collection'
