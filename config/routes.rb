@@ -10,10 +10,11 @@ Rails.application.routes.draw do
   patch 'user/update', as: 'user'
   delete 'user/:id', to: 'user#deactivate', as: 'deactivate_user'
   post 'user/:id', to: 'user#activate', as: 'activate_user'
+  get 'user/confirm', to: 'user#confirm_email'
   
   get 'order_requests/new/:id', to: 'order_request#new', as: 'new_order_request'
   match  '/order_requests', to: 'order_request#create', via: [:get, :post]
-  get 'order_requests/confirm/:token', to: 'order_request#confirm'
+  get 'order_requests/confirm', to: 'order_request#confirm'
   get 'order_requests/my/created', to: 'order_request#show_current_user_created_order_requests', as: 'current_user_created_order_requests'
   get 'order_requests/my/received', to: 'order_request#show_current_user_received_order_requests', as: 'current_user_received_order_requests'
 

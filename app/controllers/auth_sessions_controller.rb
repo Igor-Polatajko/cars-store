@@ -9,6 +9,11 @@ class AuthSessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
 
+      unless user.email_confirmed
+        flash[:alert] = "User account is not confirmed, follow the link sent you via email to confirm account!"
+        return redirect_to login_url
+      end 
+
       if user.active
         session[:user_id] = user.id
         flash[:notice] = "Logged in!"
@@ -16,10 +21,10 @@ class AuthSessionsController < ApplicationController
       end
 
       flash[:alert] = "User account is not active, contact administrator!"
-      redirect_to login_url
+      return redirect_to login_url
     else
       flash[:alert] = "Email or password is invalid"
-      redirect_to login_url
+      return redirect_to login_url
     end
   end
 

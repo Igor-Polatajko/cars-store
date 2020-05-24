@@ -1,4 +1,6 @@
 class UserController < ApplicationController
+  require 'securerandom'
+
   before_action :admin_only, only: [:destroy]
   before_action :user_only, only: [:edit, :update]
   before_action :guest_only, only: [:new, :create]
@@ -9,12 +11,33 @@ class UserController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.confirmation_token = SecureRandom.urlsafe_base64
 
     if @user.save 
+      UserMailer.send_confirmation_token(@user).deliver_later
       redirect_to login_url 
     else
       render :new 
     end 
+  end
+
+  def confirm_email
+    user = User.find_by_confirmation_token(params[:token])
+     
+    unless user
+      return redirect_to main_page_index_path
+    end
+
+    if user.email_confirmed
+      flash[:alert] = "User is already confirmed!"
+      return redirect_to login_url
+    end
+
+    user.email_confirmed = true
+    user.save
+
+    flash[:info] = "Email was confirmed!"
+    redirect_to login_url
   end
 
   def edit
