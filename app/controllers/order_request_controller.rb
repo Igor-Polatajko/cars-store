@@ -66,7 +66,7 @@ class OrderRequestController < ApplicationController
   def confirm
     order_request = OrderRequest.find_by_confirmation_token(params[:token])
 
-    if !order_request
+    if order_request.nil?
       redirect_to main_page_index_path
     end
 
