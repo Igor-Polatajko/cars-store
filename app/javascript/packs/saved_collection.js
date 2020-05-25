@@ -7,7 +7,7 @@ $(document).on('click', '.save_to_collection_btn', function() {
         contentType: 'application/json',
         dataType: 'script',
         data: "",
-        error: function() {
+        error: function()  {
             toastr.error("Error while adding item to save collection!");
         }
     }); 
@@ -15,7 +15,7 @@ $(document).on('click', '.save_to_collection_btn', function() {
 
 $(document).on('click', '.remove_from_collection_btn', function() {
     let record_id = $(this).attr('record_id')
-
+    
     $.ajax({
         url: '/line_items/' + record_id,
         type: 'DELETE',

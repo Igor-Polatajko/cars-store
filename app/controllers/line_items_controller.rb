@@ -4,6 +4,10 @@ class LineItemsController < ApplicationController
         car_record_id = params[:car_record_id]
         car_record = CarRecord.find(car_record_id)
 
+        if is_owner(car_record.id)
+            return respond_after_create(WARN_ACTION, "You cannot add your car to saved collection!", car_record_id)
+        end
+
         if @car_records_in_saved_collection.count >= MAX_ITEMS_IN_COLLECTION
             return respond_after_create(WARN_ACTION, 
                 "You can have up to #{MAX_ITEMS_IN_COLLECTION} items in saved collection!", car_record_id)

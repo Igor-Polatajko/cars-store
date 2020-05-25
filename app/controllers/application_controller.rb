@@ -5,9 +5,10 @@ class ApplicationController < ActionController::Base
     include AccessControl
 
     before_action :set_current_user, :set_saved_collection, :set_web_socket_identifier_cookie
-    helper_method :is_admin
+    helper_method :is_admin, :is_owner, :is_guest
     
-    #rescue_from Exception, :with => :handle_exception
+    #rescue_from Exception, with: :handle_exception
+    rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found_exception
 
     def handle_exception(error)
       logger.error(error.message)
@@ -18,6 +19,12 @@ class ApplicationController < ActionController::Base
         flash[:error] = "Internal service error!"
       end
       redirect_to error_path
+    end
+
+    
+    def handle_not_found_exception(error)
+      logger.error(error.message)
+      redirect_to main_page_index_path
     end
 
 end

@@ -68,7 +68,7 @@
                   <% end %>
                 <% end %>
               <% end %>
-              <% if is_owner(@car_record.id) %>
+              <% if is_owner(@car_record.id) && @car_record.active? %>
                 <%= link_to(edit_car_record_path(@car_record), class: 'ml-4') do %>
                   <div class="btn btn-outline-warning">
                     Edit
@@ -90,7 +90,7 @@
     <%= @car_record.description %>
   </div>
   <div class="mt-5 d-flex flex-row-reverse">
-    <% if @car_record.active? %>
+    <% if @car_record.active? && !is_owner(@car_record.id) %>
       <%= link_to(new_order_request_path(@car_record), :class => 'mr-4') do %>
         <div class="btn btn-lg btn-success">
           Request order
