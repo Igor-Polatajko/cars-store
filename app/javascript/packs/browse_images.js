@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function () {
         const images_preview_block = $('#images-preview')
         images_preview_block.html('')
         for (i = 0; i < files.length; i++) {
-            var reader = new FileReader();
+            const reader = new FileReader();
 
             reader.onload = function (event) {
                 images_preview_block.append(`
