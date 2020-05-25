@@ -1,33 +1,49 @@
 class CarRecordsController < ApplicationController
+  before_action :user_only, only: [:new, :create, :current_user_car_records]
+  before_action :owner_only, only: [:edit, :update]
+  before_action :owner_or_admin, only: [:destroy, :activate]
 
-  before_action :set_car_record, only: [:show, :edit, :update, :destroy]
+  helper_method :is_guest, :is_owner, :is_admin
 
-  # GET /car_records
-  # GET /car_records.json
+  before_action :set_car_record, only: [:edit, :update, :destroy]
+
   def index
-    @car_records = CarRecord.order(created_at: :desc)
+    @car_records = CarRecord.order(created_at: :desc).paginate(page: params[:page], per_page: 3)
   end
 
-  # GET /car_records/1
-  # GET /car_records/1.json
+  def search
+    if params[:q].nil? || params[:q].empty?
+      return redirect_to main_page_index_path
+    end
+
+    @car_records = CarRecord.where("title like ?", "%#{params[:q]}%")
+                            .order(views_count: :desc)
+                            .paginate(page: params[:page], per_page: 3)
+  end
+
+  def show_current_user_car_records
+    @car_records = CarRecord.unscoped
+                            .where(user_id: @current_user.id)
+                            .order(created_at: :desc)
+                            .paginate(page: params[:page], per_page: 3)
+  end
+
   def show
+    @car_record = CarRecord.unscoped.find(params[:id])
+    @car_record.increment!(:views_count)
   end
 
-  # GET /car_records/new
   def new
     @car_record = CarRecord.new
   end
 
-  # GET /car_records/1/edit
   def edit
   end
 
-  # POST /car_records
-  # POST /car_records.json
   def create
     @car_record = CarRecord.new(car_record_params)
 
-    @car_record.user = current_user
+    @car_record.user = @current_user
 
     respond_to do |format|
       if @car_record.save
@@ -40,8 +56,6 @@ class CarRecordsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /car_records/1
-  # PATCH/PUT /car_records/1.json
   def update
     respond_to do |format|
       if @car_record.update(car_record_params)
@@ -54,23 +68,22 @@ class CarRecordsController < ApplicationController
     end
   end
 
-  # DELETE /car_records/1
-  # DELETE /car_records/1.json
   def destroy
-    @car_record.destroy
-    respond_to do |format|
-      format.html { redirect_to car_records_url, notice: 'Car record was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @car_record.update_column(:active, false)
+    redirect_to car_record_path(@car_record.id), notice: 'Car record was successfully deactivated.'
+  end
+
+  def activate
+    @car_record = CarRecord.unscoped.find(params[:id])
+    @car_record.update_column(:active, true)
+    redirect_to car_record_path(@car_record.id), notice: 'Car record was successfully activated.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_car_record
       @car_record = CarRecord.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def car_record_params
       params.require(:car_record).permit(:title, :description, :price, images:[])
     end

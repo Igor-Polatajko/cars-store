@@ -1,9 +1,7 @@
 class SavedCollectionsController < ApplicationController
+    require 'will_paginate/array'
 
-    def show
-        @car_records = @saved_collection.line_items
-                                            .order(created_at: :desc)
-                                            .map{ |line_item| line_item.car_record }
+    def show     
     end 
 
     def destroy

@@ -1,5 +1,9 @@
-<% if @car_records_in_saved_collection.include?(car_record) %>
-  <div class="btn btn-success remove_from_collection_btn record-id-<%= car_record.id %>" record_id="<%= car_record.id %>">Saved</div>
+<% if is_owner(car_record.id) %>
+  <div class="text-white rounded px-2 py-1 bg-success font-weight-bold">Your car</div>
 <% else %>
-  <div class="btn btn-outline-success save_to_collection_btn record-id-<%= car_record.id %>" record_id="<%= car_record.id %>">Save</div>
+  <% if @car_records_in_saved_collection.include?(car_record) %>
+    <div class="btn btn-success remove_from_collection_btn record-id-<%= car_record.id %>" record_id="<%= car_record.id %>">Saved</div>
+  <% elsif car_record.active? %>
+    <div class="btn btn-outline-success save_to_collection_btn record-id-<%= car_record.id %>" record_id="<%= car_record.id %>">Save</div>
+  <% end %>
 <% end %>

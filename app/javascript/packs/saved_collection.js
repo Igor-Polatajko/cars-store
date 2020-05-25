@@ -7,15 +7,15 @@ $(document).on('click', '.save_to_collection_btn', function() {
         contentType: 'application/json',
         dataType: 'script',
         data: "",
-        error: function () {
-            alert("Error while adding item to collection");
+        error: function()  {
+            toastr.error("Error while adding item to save collection!");
         }
     }); 
 });
 
 $(document).on('click', '.remove_from_collection_btn', function() {
     let record_id = $(this).attr('record_id')
-
+    
     $.ajax({
         url: '/line_items/' + record_id,
         type: 'DELETE',
@@ -23,7 +23,7 @@ $(document).on('click', '.remove_from_collection_btn', function() {
         dataType: 'script',
         data: "",
         error: function () {
-            alert("Error while removing item from collection");
+            toastr.error("Error while removing item from save collection!");
         }
     }); 
 });

@@ -1,4 +1,3 @@
- 
 <div>
   <%= form_with(model: car_record, local: true, class: "form-horizontal col-md-12") do |form| %>
     <% if car_record.errors.any? %>
@@ -28,9 +27,16 @@
         <label class="btn btn-outline-primary">
           Browse images
           <span style="display:none;">
-            <%= form.file_field :images, multiple: true %>
+            <%= form.file_field :images, multiple: true, id: 'browse-images' %>
           </span>
         </label>
+        <div id="images-preview" class="col-md-12 row">
+            <% car_record.images.each do | image | %>
+              <div class="col-md-3 px-2 pt-1">
+                <%= image_tag(image, class: "w-100") %>
+              </div>
+            <% end %>
+        </div>
       </div>
     </div>
     <div class="form-group float-right">

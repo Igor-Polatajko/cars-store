@@ -1,11 +1,6 @@
-<div class="d-flex align-items-center h-100">
+<div class="d-flex align-items-center h-100 mt-5">
   <div class="container h-auto col-md-6 rounded bg-light p-3 block-shadow">
-    <h1>New Car Record</h1>
+    <h1>Sale car</h1>
     <%= render 'form', car_record: @car_record %>
-    <%= link_to(@car_record, :class => 'float-right mr-2') do %>
-      <div class="btn btn btn-outline-primary">
-        Back
-      </div>
-    <% end %>
   </div>
 </div>

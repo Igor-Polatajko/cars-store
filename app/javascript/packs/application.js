@@ -9,6 +9,9 @@ require("@rails/activestorage").start()
 require("channels")
 require("jquery")
 require("packs/saved_collection")
+require("packs/browse_images")
+
+global.toastr = require("toastr")
 
 import "bootstrap";
 import "../stylesheets/application";

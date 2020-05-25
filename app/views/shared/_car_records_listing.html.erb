@@ -1,25 +1,45 @@
 <h2 id="notice" class="text-center"><%= notice %></h2>
 <div class="container content-container car_records">
   <% car_records.each do |car_record| %>
-    <div class="row <%= cycle('bg-white','bg-light') %> mt-5 car-record-container p-3">
-      <%= image_tag(car_record.images[0], :class => "col-md-4") %>
+    <div class="row mt-5 car-record-container p-3">
+      <div class="col-md-4">
+        <%= image_tag(car_record.images[0], class: "w-100") %>
+      </div>
       <div class="col-md-8 d-flex flex-column justify-content-between">
         <div>
           <div class="row mt-2">
             <div class='col-md-12 d-flex justify-content-between'>
               <div class="record-title"><%= car_record.title %></div>
-              <%= render 'shared/save_unsave_btn', car_record: car_record %>
+                <%= render 'shared/save_unsave_btn', car_record: car_record %>
             </div>
           </div>
+          <% if !car_record.active? %>
+            <div class="row mt-4">
+              <div class="ml-auto">
+                <div class="text-white rounded px-2 py-1 bg-danger font-weight-bold">Removed from site</div>
+              </div>
+            </div>
+          <% end %>
           <div class="row">
             <div class='col-md-3 p-3'><%= truncate(car_record.description) %></div>
           </div>
         </div>
-        <div class="row mb-3 d-flex justify-content-between">
-          <div class="row">
-            <div class='price ml-4 px-3'><%= number_to_currency(car_record.price, :precision => 0) %></div>
+        <div>
+          <div class="row mb-1 d-flex justify-content-between">
+            <div class="row">
+              <div class='price ml-4 px-3'><%= number_to_currency(car_record.price, :precision => 0) %></div>
+            </div>
+            <div class="pr-3">
+              <div class="rounded bg-light text-secondary py-1 px-2">
+                Views: <%= car_record.views_count %>
+              </div>
+            </div>
           </div>
-          <%= link_to 'Details', car_record %>
+          <div>
+            <div class="bg-light text-dark rounded px-3 py-1 float-right">
+              <%= link_to 'View details', car_record, style: "font-size: 1.2em" %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

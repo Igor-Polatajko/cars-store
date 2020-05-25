@@ -1,0 +1,13 @@
+<div class="mt-5">
+  <h2 class="bg-light rounded p-2 text-center">My cars</h2>
+  <% if @car_records.any? %>
+    <div>
+      <%= render 'shared/car_records_listing', car_records: @car_records %>
+    </div>
+    <div class="m-3 d-flex justify-content-center">
+      <%= will_paginate @car_records, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>
+  <% else %>
+    <h3 class="text-center mt-5">You don't have any registered cars</h3>
+  <% end %>
+</div>

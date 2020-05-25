@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_09_124718) do
+ActiveRecord::Schema.define(version: 2020_05_24_200952) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2020_05_09_124718) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id", default: 1, null: false
+    t.integer "views_count", default: 0
+    t.boolean "active", default: true
     t.index ["user_id"], name: "index_car_records_on_user_id"
   end
 
@@ -48,11 +50,6 @@ ActiveRecord::Schema.define(version: 2020_05_09_124718) do
     t.integer "order_request_id", null: false
     t.index ["car_record_id"], name: "index_car_records_order_requests_on_car_record_id"
     t.index ["order_request_id"], name: "index_car_records_order_requests_on_order_request_id"
-  end
-
-  create_table "carts", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -90,16 +87,8 @@ ActiveRecord::Schema.define(version: 2020_05_09_124718) do
   create_table "saved_collections", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "saved_records_collections", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "selecteds", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_saved_collections_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -110,6 +99,10 @@ ActiveRecord::Schema.define(version: 2020_05_09_124718) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_admin", default: false
+    t.boolean "active", default: true
+    t.boolean "email_confirmed", default: false
+    t.string "confirmation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -120,4 +113,5 @@ ActiveRecord::Schema.define(version: 2020_05_09_124718) do
   add_foreign_key "order_requests", "car_records"
   add_foreign_key "saved_car_records", "car_records"
   add_foreign_key "saved_car_records", "saved_records_collections"
+  add_foreign_key "saved_collections", "users"
 end

@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
-    include SavedCollectionSessionRetriever
+    include AuthSessionConcern
+    include SavedCollectionConcern
     include WebSocketIdentifierCookieSetter
-    before_action :set_collection, :set_web_socket_identifier_cookie
-    helper_method :current_user
+    include AccessControl
+
+    before_action :set_current_user, :set_saved_collection, :set_web_socket_identifier_cookie
+    helper_method :is_admin, :is_owner, :is_guest
     
-    #rescue_from Exception, :with => :handle_exception
+    #rescue_from Exception, with: :handle_exception
+    rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found_exception
 
     def handle_exception(error)
       logger.error(error.message)
@@ -17,12 +21,10 @@ class ApplicationController < ActionController::Base
       redirect_to error_path
     end
 
-    def current_user
-      if session[:user_id]
-        @current_user = User.find(session[:user_id])
-      else
-        @current_user = nil
-      end
+    
+    def handle_not_found_exception(error)
+      logger.error(error.message)
+      redirect_to main_page_index_path
     end
 
 end

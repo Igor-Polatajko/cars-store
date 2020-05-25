@@ -1,0 +1,45 @@
+<% CarRecord.unscoped do %>
+  <div class="mt-5">
+    <% if @order_requests.any? %>
+      <div class="d-flex justify-content-center">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th colspan="8" class="text-center display-4">Received order requests</th>
+            </tr>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Price</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Customer email</th>
+              <th scope="col">Customer phone number</th>
+              <th scope="col">Comment</th>
+              <th scope="col">Created at</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @order_requests.each do |order_request| %>
+              <tr>
+                <td><%= link_to(order_request.car_record.title, car_record_path(order_request.car_record.id)) %></td>
+                <td><%= order_request.car_record.price %></td>
+                <td>
+                  <%= order_request.name %>
+                  <%= order_request.surname %>
+                </td>
+                <td><%= order_request.email %></td>
+                <td><%= order_request.phone_number %></td>
+                <td><%= order_request.comment %></td>
+                <td><%= order_request.created_at %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="m-3 d-flex justify-content-center">
+        <%= will_paginate @order_requests, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
+    <% else %>
+      <h3 class="text-center">Nothing to show!</h3>
+    <% end %>
+  </div>
+<% end %>

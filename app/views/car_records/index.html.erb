@@ -1,1 +1,6 @@
-<%= render 'shared/car_records_listing', car_records: @car_records %>
+<div>
+  <%= render 'shared/car_records_listing', car_records: @car_records %>
+</div>
+<div class="m-3 d-flex justify-content-center">
+  <%= will_paginate @car_records, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>

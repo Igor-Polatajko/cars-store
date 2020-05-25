@@ -1,0 +1,13 @@
+<div class="pt-5">
+    <h2 class="text-center rounded bg-light py-2">Search results for: "<%= params[:q] %>"</h2>
+<div>
+<% if @car_records.any? %>
+<div>
+  <%= render 'shared/car_records_listing', car_records: @car_records %>
+</div>
+<% else %>
+   <h3 class="text-center mt-5">No items found!</h3>
+<% end %>
+<div class="m-3 d-flex justify-content-center">
+  <%= will_paginate @car_records, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
