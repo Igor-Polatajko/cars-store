@@ -49,34 +49,31 @@
       </div>
       <div class="col-md-4">
         <div class="pt-3 pb-2 px-1 float-right">
-          <% if is_guest %>
-            <%= render 'shared/save_unsave_btn', car_record: @car_record %>
-          <% else %>
-            <div class="d-flex ml-4 mt-5">
-              <% if is_admin || is_owner(@car_record.id) %>
-                <% if @car_record.active? %>
-                  <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }) do %>
-                    <div class="btn btn-outline-danger">
-                      Delete
-                    </div>
-                  <% end %>
-                <% else %>
-                  <%= link_to(car_record_activate_path(@car_record.id), method: :post, data: { confirm: 'Are you sure?' }) do %>
-                    <div class="btn btn-outline-info">
-                      Activate
-                    </div>
-                  <% end %>
+          <%= render 'shared/save_unsave_btn', car_record: @car_record %>
+          <div class="d-flex ml-4 mt-5">
+            <% if is_admin || is_owner(@car_record.id) %>
+              <% if @car_record.active? %>
+                <%= link_to(@car_record, method: :delete, data: { confirm: 'Are you sure?' }) do %>
+                  <div class="btn btn-outline-danger">
+                    Delete
+                  </div>
                 <% end %>
-              <% end %>
-              <% if is_owner(@car_record.id) && @car_record.active? %>
-                <%= link_to(edit_car_record_path(@car_record), class: 'ml-4') do %>
-                  <div class="btn btn-outline-warning">
-                    Edit
+              <% else %>
+                <%= link_to(car_record_activate_path(@car_record.id), method: :post, data: { confirm: 'Are you sure?' }) do %>
+                  <div class="btn btn-outline-info">
+                    Activate
                   </div>
                 <% end %>
               <% end %>
-            </div>
-          <% end %>
+            <% end %>
+            <% if is_owner(@car_record.id) && @car_record.active? %>
+              <%= link_to(edit_car_record_path(@car_record), class: 'ml-4') do %>
+                <div class="btn btn-outline-warning">
+                  Edit
+                </div>
+              <% end %>
+            <% end %>
+          </div>
         </div>
         <div class="pt-3 pb-2 px-1 float-right">
           <div class="rounded bg-light text-secondary py-1 px-2 font-weight-bold">

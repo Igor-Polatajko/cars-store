@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
     include WebSocketIdentifierCookieSetter
     include AccessControl
 
-    before_action :set_current_user, :set_saved_collection, :set_web_socket_identifier_cookie
+    before_action :set_current_user, :logout_inactive_user, :set_saved_collection, :set_web_socket_identifier_cookie
     helper_method :is_admin, :is_owner, :is_guest
     
     #rescue_from Exception, with: :handle_exception

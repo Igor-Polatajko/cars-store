@@ -30,6 +30,6 @@ class AuthSessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to main_page_index_url, notice: "Logged out!"
+    redirect_to login_path, notice: "Logged out!"
   end
 end
