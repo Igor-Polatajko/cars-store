@@ -2,6 +2,14 @@ module AccessControl
 
     protected 
 
+    def logout_inactive_user
+        if @current_user.present? && !@current_user.active
+            session[:user_id] = nil
+            flash[:alert] = "Your account was deactivated!"
+            redirect_to login_path
+        end
+    end
+
     def guest_only
         if !is_guest
             return redirect_to main_page_index_path
@@ -10,25 +18,25 @@ module AccessControl
 
     def user_only
         if is_guest
-            return redirect_to main_page_index_path
+            return redirect_to login_path
         end
     end
 
     def admin_only
-        if is_guest || !is_admin
-            return redirect_to main_page_index_path
+        if !is_admin
+            return redirect_to login_path
         end
     end
 
     def owner_only
-        if is_guest || !is_owner(params[:id])
-            return redirect_to main_page_index_path
+        if !is_owner(params[:id])
+            return redirect_to login_path
         end
     end
 
     def owner_or_admin
-        if is_guest || (!is_owner(params[:id]) && !is_admin)
-            return redirect_to main_page_index_path
+        if !is_owner(params[:id]) && !is_admin
+            return redirect_to login_path
         end
     end
 
@@ -37,7 +45,7 @@ module AccessControl
     end
 
     def is_admin
-        @current_user.is_admin
+        !is_guest && @current_user.is_admin
     end
 
     def is_owner(car_record_id)
