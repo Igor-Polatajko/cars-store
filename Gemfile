@@ -20,6 +20,8 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 
 gem 'figaro', '~> 1.2'
 
+gem 'aws-sdk-s3', '~> 1.67', '>= 1.67.1'
+
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
