@@ -77,11 +77,11 @@ ActiveRecord::Schema.define(version: 2020_05_24_200952) do
 
   create_table "saved_car_records", force: :cascade do |t|
     t.integer "car_record_id", null: false
-    t.integer "saved_records_collection_id", null: false
+    t.integer "saved_collection_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["car_record_id"], name: "index_saved_car_records_on_car_record_id"
-    t.index ["saved_records_collection_id"], name: "index_saved_car_records_on_saved_records_collection_id"
+    t.index ["saved_collection_id"], name: "index_saved_car_records_on_saved_collection_id"
   end
 
   create_table "saved_collections", force: :cascade do |t|
@@ -112,6 +112,6 @@ ActiveRecord::Schema.define(version: 2020_05_24_200952) do
   add_foreign_key "line_items", "saved_collections"
   add_foreign_key "order_requests", "car_records"
   add_foreign_key "saved_car_records", "car_records"
-  add_foreign_key "saved_car_records", "saved_records_collections"
+  add_foreign_key "saved_car_records", "saved_collections"
   add_foreign_key "saved_collections", "users"
 end
